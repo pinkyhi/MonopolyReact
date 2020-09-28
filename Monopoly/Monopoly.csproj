@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Monopoly.BL\Monopoly.BL.csproj" />
     <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
     <ProjectReference Include="..\Monopoly.DAL\Monopoly.DAL.csproj" />
