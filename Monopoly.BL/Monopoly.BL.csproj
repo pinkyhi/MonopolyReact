@@ -1,18 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Monopoly.BL\Monopoly.BL.csproj" />
     <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
     <ProjectReference Include="..\Monopoly.DAL\Monopoly.DAL.csproj" />
   </ItemGroup>
-
 
 </Project>
