@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="API\ViewModels\" />
-    <Folder Include="API\Routes\" />
     <Folder Include="API\Requests\" />
   </ItemGroup>
 
