@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Monopoly.Core.Options;
+using Monopoly.Filters.ActionFilters;
+using Monopoly.Filters.ExceptionFilters;
 
 namespace Monopoly
 {
@@ -64,6 +66,11 @@ namespace Monopoly
             {
                 logger.LogError(ex.Message);
             }
+        }
+        private void InstallFilters(IServiceCollection services)
+        {
+            services.AddScoped<MonopolyExceptionFilterAttribute>();
+            services.AddScoped<ModelValidationAttribute>();
         }
 
         private void InstallSwagger(IServiceCollection services)
