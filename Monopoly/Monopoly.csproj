@@ -8,7 +8,6 @@
     <Folder Include="API\ViewModels\" />
     <Folder Include="API\Routes\" />
     <Folder Include="API\Requests\" />
-    <Folder Include="Controllers\" />
   </ItemGroup>
 
   <ItemGroup>
