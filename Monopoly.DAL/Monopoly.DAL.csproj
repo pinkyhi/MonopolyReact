@@ -8,4 +8,8 @@
     <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\BaseEntities\" />
+  </ItemGroup>
+
 </Project>
