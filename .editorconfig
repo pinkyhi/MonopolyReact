@@ -2,3 +2,9 @@
 
 # Default severity for analyzer diagnostics with category 'StyleCop.CSharp.DocumentationRules'
 dotnet_analyzer_diagnostic.category-StyleCop.CSharp.DocumentationRules.severity = silent
+
+# Nix05: Too many parameters in constructor
+dotnet_diagnostic.Nix05.severity = silent
+
+# Nix01: Line is too long
+dotnet_diagnostic.Nix01.severity = silent
