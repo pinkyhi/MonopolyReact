@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Monopoly.Core.Options
+﻿namespace Monopoly.Core.Options
 {
     public class SwaggerOptions
     {
@@ -11,6 +7,5 @@ namespace Monopoly.Core.Options
         public string Description { get; set; }
 
         public string UIEndpoint { get; set; }
-
     }
 }

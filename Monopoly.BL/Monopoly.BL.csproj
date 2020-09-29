@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Nix.StyleCop.Analyzers" Version="1.0.19" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
     <ProjectReference Include="..\Monopoly.DAL\Monopoly.DAL.csproj" />
   </ItemGroup>

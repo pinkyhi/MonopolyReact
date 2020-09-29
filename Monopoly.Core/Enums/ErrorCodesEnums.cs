@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Monopoly.Core.Enums
+﻿namespace Monopoly.Core.Enums
 {
     public static class ErrorCodesEnums
     {

@@ -1,11 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Monopoly.API.Responses
+﻿namespace Monopoly.API.Responses
 {
+    using System.Collections.Generic;
+    using Microsoft.AspNetCore.Mvc.ModelBinding;
+
     public class ErrorResponse
     {
         public int SubCode { get; set; }

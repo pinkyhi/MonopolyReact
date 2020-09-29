@@ -5,11 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
+    <PackageReference Include="Nix.StyleCop.Analyzers" Version="1.0.19" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\BaseEntities\" />
+    <ProjectReference Include="..\Monopoly.Core\Monopoly.Core.csproj" />
   </ItemGroup>
 
 </Project>

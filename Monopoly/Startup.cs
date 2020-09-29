@@ -1,27 +1,22 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Monopoly.Core.Options;
-using Monopoly.Filters.ActionFilters;
-using Monopoly.Filters.ExceptionFilters;
-
 namespace Monopoly
 {
+    using System;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.OpenApi.Models;
+    using Monopoly.Core.Options;
+    using Monopoly.Filters.ActionFilters;
+    using Monopoly.Filters.ExceptionFilters;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
@@ -29,6 +24,7 @@ namespace Monopoly
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            this.InstallFilters(services);
             this.InstallSwagger(services);
             services.AddControllers();
         }
@@ -62,11 +58,12 @@ namespace Monopoly
                     endpoints.MapControllers();
                 });
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError(ex.Message);
             }
         }
+
         private void InstallFilters(IServiceCollection services)
         {
             services.AddScoped<MonopolyExceptionFilterAttribute>();

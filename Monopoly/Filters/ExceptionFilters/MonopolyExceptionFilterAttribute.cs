@@ -1,17 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
-using Monopoly.API.Responses;
-using Monopoly.Core.Enums;
-using Monopoly.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Monopoly.Filters.ExceptionFilters
+﻿namespace Monopoly.Filters.ExceptionFilters
 {
+    using System;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using Microsoft.Extensions.Logging;
+    using Monopoly.API.Responses;
+    using Monopoly.Core.Enums;
+    using Monopoly.Core.Exceptions;
+
     public class MonopolyExceptionFilterAttribute : Attribute, IExceptionFilter
     {
         private readonly ILogger<MonopolyExceptionFilterAttribute> logger;
@@ -20,6 +17,7 @@ namespace Monopoly.Filters.ExceptionFilters
         {
             this.logger = logger;
         }
+
         public void OnException(ExceptionContext context)
         {
             if (context.Exception.GetType().IsSubclassOf(typeof(MonopolyException)))
