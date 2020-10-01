@@ -1,11 +1,14 @@
-﻿using System;
+﻿#pragma warning disable SA1200 // Using directives must be placed correctly
+using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Monopoly.DAL.Migrations
 {
     public partial class IdentityInit : Migration
     {
+#pragma warning disable Nix02 // Method is too long
         protected override void Up(MigrationBuilder migrationBuilder)
+#pragma warning restore Nix02 // Method is too long
         {
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",

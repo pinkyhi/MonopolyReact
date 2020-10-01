@@ -126,7 +126,7 @@ namespace Monopoly
                 options.Password.RequireDigit = false;
             }).AddEntityFrameworkStores<AppDbContext>();
 
-            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate(); 
+            services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
         }
     }
 }
