@@ -8,34 +8,52 @@
 
     public interface IRepository
     {
-        IEnumerable<T> GetByFilter<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        IEnumerable<T> GetRange<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto;
 
-        T GetExemplarByFilter<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        T Get<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto;
 
-        T AddExemplar<T>(T exemplar)
+        T Add<T>(T exemplar)
             where T : BaseDto;
 
-        void DeleteByFilter<T>(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        void AddRange<T>(IEnumerable<T> range)
+           where T : BaseDto;
+
+       void DeleteRange<T>(IEnumerable<T> range)
             where T : BaseDto;
 
-        void UpdateExemplar<T>(T exemplar)
+        void Delete<T>(T exemplar)
             where T : BaseDto;
 
-        Task<IEnumerable<T>> GetByFilterAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        void Update<T>(T exemplar)
             where T : BaseDto;
 
-        Task<T> GetExemplarByFilterAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        void UpdateRange<T>(IEnumerable<T> range)
             where T : BaseDto;
 
-        Task<T> AddExemplarAsync<T>(T exemplar)
+        Task<IEnumerable<T>> GetRangeAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto;
 
-        Task DeleteByFilterAsync<T>(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        Task<T> GetAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto;
 
-        Task UpdateExemplarAsync<T>(T exemplar)
+        Task<T> AddAsync<T>(T exemplar)
+            where T : BaseDto;
+
+        Task AddRangeAsync<T>(IEnumerable<T> range)
+            where T : BaseDto;
+
+        Task DeleteRangeAsync<T>(IEnumerable<T> range)
+            where T : BaseDto;
+
+        Task DeleteAsync<T>(T exemplar)
+            where T : BaseDto;
+
+        Task UpdateAsync<T>(T exemplar)
+            where T : BaseDto;
+
+        Task UpdateRangeAsync<T>(IEnumerable<T> exemplars)
             where T : BaseDto;
     }
 }

@@ -21,6 +21,5 @@
         public string Title { get; set; }
 
         public IEnumerable<GameMovementField> GameMovementFields { get; set; }
-
     }
 }

@@ -21,6 +21,5 @@
         public string Title { get; set; }
 
         public IEnumerable<GameMultiplyField> GameMultiplyFields { get; set; }
-
     }
 }

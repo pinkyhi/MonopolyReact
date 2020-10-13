@@ -18,21 +18,21 @@
             this.dbContext = dbContext;
         }
 
-        public IEnumerable<T> GetByFilter<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public IEnumerable<T> GetRange<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto
         {
             var query = this.Include(tracking, includeProperties);
             return query.Where(predicate);
         }
 
-        public T GetExemplarByFilter<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public T Get<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto
         {
             var query = this.Include(tracking, includeProperties);
             return query.AsEnumerable().Where(e => predicate(e)).FirstOrDefault();
         }
 
-        public T AddExemplar<T>(T exemplar)
+        public T Add<T>(T exemplar)
             where T : BaseDto
         {
             T newExemplar = this.dbContext.Set<T>().Add(exemplar).Entity;
@@ -40,35 +40,56 @@
             return newExemplar;
         }
 
-        public void DeleteByFilter<T>(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public void AddRange<T>(IEnumerable<T> range)
             where T : BaseDto
         {
-            this.dbContext.Set<T>().RemoveRange(this.GetByFilter<T>(false, predicate, includeProperties));
+            this.dbContext.Set<T>().AddRange(range);
             this.dbContext.SaveChanges();
         }
 
-        public void UpdateExemplar<T>(T exemplar)
+        public void DeleteRange<T>(IEnumerable<T> range)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().RemoveRange(range);
+            this.dbContext.SaveChanges();
+        }
+
+        public void Delete<T>(T exemplar)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().Remove(exemplar);
+            this.dbContext.SaveChanges();
+        }
+
+        public void UpdateRange<T>(IEnumerable<T> exemplars)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().UpdateRange(exemplars);
+            this.dbContext.SaveChanges();
+        }
+
+        public void Update<T>(T exemplar)
             where T : BaseDto
         {
             this.dbContext.Set<T>().Update(exemplar);
             this.dbContext.SaveChanges();
         }
 
-        public async Task<IEnumerable<T>> GetByFilterAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<IEnumerable<T>> GetRangeAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto
         {
             var query = await this.Include(tracking, includeProperties).ToListAsync();
             return query.Where(predicate);
         }
 
-        public async Task<T> GetExemplarByFilterAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public async Task<T> GetAsync<T>(bool tracking, Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
             where T : BaseDto
         {
             var query = await this.Include(tracking, includeProperties).ToListAsync();
             return query.FirstOrDefault(predicate);
         }
 
-        public async Task<T> AddExemplarAsync<T>(T exemplar)
+        public async Task<T> AddAsync<T>(T exemplar)
             where T : BaseDto
         {
             var newExemplarTask = await this.dbContext.Set<T>().AddAsync(exemplar);
@@ -76,17 +97,38 @@
             return newExemplarTask.Entity;
         }
 
-        public Task DeleteByFilterAsync<T>(Func<T, bool> predicate, params Expression<Func<T, object>>[] includeProperties)
+        public async Task AddRangeAsync<T>(IEnumerable<T> range)
             where T : BaseDto
         {
-            this.dbContext.Set<T>().RemoveRange(this.GetByFilter<T>(false, predicate, includeProperties));
+            await this.dbContext.Set<T>().AddRangeAsync(range);
+            await this.dbContext.SaveChangesAsync();
+        }
+
+        public Task DeleteRangeAsync<T>(IEnumerable<T> range)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().RemoveRange(range);
             return this.dbContext.SaveChangesAsync();
         }
 
-        public Task UpdateExemplarAsync<T>(T exemplar)
+        public Task DeleteAsync<T>(T exemplar)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().Remove(exemplar);
+            return this.dbContext.SaveChangesAsync();
+        }
+
+        public Task UpdateAsync<T>(T exemplar)
             where T : BaseDto
         {
             this.dbContext.Set<T>().Update(exemplar);
+            return this.dbContext.SaveChangesAsync();
+        }
+
+        public Task UpdateRangeAsync<T>(IEnumerable<T> range)
+            where T : BaseDto
+        {
+            this.dbContext.Set<T>().UpdateRange(range);
             return this.dbContext.SaveChangesAsync();
         }
 
