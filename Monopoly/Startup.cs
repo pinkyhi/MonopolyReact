@@ -13,7 +13,9 @@ namespace Monopoly
     using Monopoly.Core.Options;
     using Monopoly.DAL;
     using Monopoly.DAL.Entities;
+    using Monopoly.DAL.Interfaces;
     using Monopoly.DAL.Managers;
+    using Monopoly.DAL.Repositories;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
 
@@ -127,6 +129,8 @@ namespace Monopoly
             }).AddEntityFrameworkStores<AppDbContext>();
 
             services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+
+            services.AddScoped<IRepository, Repository>();
         }
     }
 }
