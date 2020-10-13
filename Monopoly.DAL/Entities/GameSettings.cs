@@ -1,9 +1,9 @@
 ﻿namespace Monopoly.DAL.Entities
 {
-    public class GameSettings
-    {
-        public int Id { get; set; }
+    using Monopoly.DAL.Entities.BaseEntities;
 
+    public class GameSettings : BaseEntity
+    {
         public int StartMoney { get; set; }
 
         public int ImprisonmentDuration { get; set; }
@@ -39,5 +39,7 @@
         public bool DoublePayOnUnbuildedMonopoly { get; set; }
 
         public bool DoubleBreaksJail { get; set; }
+
+        public Game Game { get; set; }
     }
 }

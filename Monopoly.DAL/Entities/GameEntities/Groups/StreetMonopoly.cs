@@ -2,7 +2,7 @@
 {
     using Monopoly.DAL.Entities.BaseEntities;
 
-    public class StreetMonopolies : BaseEntity
+    public class StreetMonopoly : BaseEntity
     {
         public string Title { get; set; }
 

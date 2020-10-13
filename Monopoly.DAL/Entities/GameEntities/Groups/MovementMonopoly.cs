@@ -6,7 +6,7 @@
     {
         public string Name { get; set; }
 
-        public int BasePrice { get; set; }
+        public int BaseTax { get; set; }
 
         public double MonopolyMultiplier { get; set; }
 
