@@ -1,6 +1,9 @@
 namespace Monopoly
 {
     using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -9,6 +12,7 @@ namespace Monopoly
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
     using Microsoft.IdentityModel.Logging;
+    using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
     using Monopoly.Core.Options;
     using Monopoly.DAL;
@@ -18,6 +22,8 @@ namespace Monopoly
     using Monopoly.DAL.Repositories;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
+    using Monopoly.WebServices.Interfaces;
+    using Monopoly.WebServices.Services;
 
     public class Startup
     {
@@ -37,6 +43,8 @@ namespace Monopoly
             IdentityModelEventSource.ShowPII = true;
             this.InstallFilters(services);
             this.InstallBussinessLogic(services);
+            this.InstallJwt(services);
+            this.InstallServices(services);
             this.InstallDataAccess(services);
             this.InstallSwagger(services);
 
@@ -92,13 +100,71 @@ namespace Monopoly
         {
             services.AddSwaggerGen(s =>
             {
-                s.SwaggerDoc("v0", new OpenApiInfo { Version = "v0", Title = "Monopoly API" });
+                s.SwaggerDoc("v0", new OpenApiInfo { Version = "v0", Title = "MonopolyAPI" });
+#pragma warning disable SA1118 // Parameter must not span multiple lines
+                s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the bearer scheme",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey
+                });
+#pragma warning restore SA1118 // Parameter must not span multiple lines
+                s.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                            Id = "Bearer",
+                            Type = ReferenceType.SecurityScheme
+                            }
+                        },
+                        new List<string>()
+                    }
+                });
             });
         }
 
         private void InstallBussinessLogic(IServiceCollection services)
         {
             services.AddScoped<UserManager>();
+            services.AddScoped<IRepository, Repository>();
+        }
+
+        private void InstallServices(IServiceCollection services)
+        {
+            services.AddScoped<IIdentityService, IdentityService>();
+        }
+
+        private void InstallJwt(IServiceCollection services)
+        {
+            JwtOptions.Secret = this.Configuration.GetSection(nameof(JwtOptions)).GetSection("Secret").Value;
+            JwtOptions.TokenLifeTime = TimeSpan.Parse(this.Configuration.GetSection(nameof(JwtOptions)).GetSection("TokenLifeTime").Value);
+
+            var tokenValidationParameters = new TokenValidationParameters
+            {
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(JwtOptions.Secret)),
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero,   // Instead of 5 minutes
+            };
+            services.AddSingleton(tokenValidationParameters);
+            services.AddAuthentication(p =>
+            {
+                p.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                p.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                p.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(p =>
+            {
+                p.SaveToken = true;
+                p.TokenValidationParameters = tokenValidationParameters;
+            });
+            JwtOptions.Secret = JwtOptions.Secret;
         }
 
         private void InstallDataAccess(IServiceCollection services)
@@ -129,8 +195,6 @@ namespace Monopoly
             }).AddEntityFrameworkStores<AppDbContext>();
 
             services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
-
-            services.AddScoped<IRepository, Repository>();
         }
     }
 }

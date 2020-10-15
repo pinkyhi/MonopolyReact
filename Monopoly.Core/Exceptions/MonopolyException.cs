@@ -16,6 +16,6 @@
         {
         }
 
-        public int Code => (int)ErrorCodesEnums.Global.Unknown;
+        public virtual int Code => (int)ErrorCodesEnums.Global.Unknown;
     }
 }

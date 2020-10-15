@@ -117,49 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BadModelData" xml:space="preserve">
-    <value>Wrong model data</value>
+  <data name="JwtClaimId" xml:space="preserve">
+    <value>id</value>
   </data>
-  <data name="EmailOccupiedException" xml:space="preserve">
-    <value>This email is already occupied</value>
-  </data>
-  <data name="GuessNumberException" xml:space="preserve">
-    <value>Something went wrong on server</value>
-  </data>
-  <data name="InvalidPasswordException" xml:space="preserve">
-    <value>Invalid password</value>
-  </data>
-  <data name="InvalidRefreshTokenException" xml:space="preserve">
-    <value>Invalid refresh token</value>
-  </data>
-  <data name="RefreshTokenIsExpiredException" xml:space="preserve">
-    <value>Refresh token is expired</value>
-  </data>
-  <data name="RefreshTokenIsInvalidatedException" xml:space="preserve">
-    <value>Refresh token is invalidated</value>
-  </data>
-  <data name="RefreshTokenIsUsedException" xml:space="preserve">
-    <value>Refresh token is used</value>
-  </data>
-  <data name="RefreshTokenNotFoundException" xml:space="preserve">
-    <value>Refresh token not found</value>
-  </data>
-  <data name="RefreshTokenWrongJtiException" xml:space="preserve">
-    <value>Refresh token is wrong cause wrong jti</value>
-  </data>
-  <data name="TokenIsNotExpiredExeption" xml:space="preserve">
-    <value>Token isn't expired</value>
-  </data>
-  <data name="TokenRefreshingException" xml:space="preserve">
-    <value>Token refreshing error, access token may be invalid</value>
-  </data>
-  <data name="Unknown" xml:space="preserve">
-    <value>Unknown error :(</value>
-  </data>
-  <data name="UsernameOccupiedException" xml:space="preserve">
-    <value>This username is already occupied</value>
-  </data>
-  <data name="UserUnknownException" xml:space="preserve">
-    <value>Unknown user</value>
+  <data name="JwtClaimUsername" xml:space="preserve">
+    <value>username</value>
   </data>
 </root>

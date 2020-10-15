@@ -15,6 +15,8 @@
             public const string Register = Base + "/identity/register";
 
             public const string Logout = Base + "/identity/logout";
+
+            public const string RefreshToken = Base + "/identity/refreshToken";
         }
     }
 }
