@@ -3,6 +3,7 @@ namespace Monopoly
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using AutoMapper;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,7 @@ namespace Monopoly
     using Monopoly.DAL.Repositories;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
+    using Monopoly.Mapper;
     using Monopoly.WebServices.Interfaces;
     using Monopoly.WebServices.Services;
 
@@ -47,6 +49,7 @@ namespace Monopoly
             this.InstallServices(services);
             this.InstallDataAccess(services);
             this.InstallSwagger(services);
+            this.InstallAutoMapper(services);
 
             services.AddMvc().ConfigureApiBehaviorOptions(options =>
             {
@@ -195,6 +198,17 @@ namespace Monopoly
             }).AddEntityFrameworkStores<AppDbContext>();
 
             services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+        }
+
+        private void InstallAutoMapper(IServiceCollection services)
+        {
+            var mapperConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new MapperProfile());
+            });
+
+            IMapper mapper = mapperConfig.CreateMapper();
+            services.AddSingleton(mapper);
         }
     }
 }
