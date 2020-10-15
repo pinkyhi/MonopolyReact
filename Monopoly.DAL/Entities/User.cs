@@ -12,5 +12,7 @@
         public DateTime RegistrationDate { get; set; }
 
         public IEnumerable<Membership> Membership { get; set; }
+
+        public IEnumerable<Game> OwnedGames { get; set; }
     }
 }

@@ -49,6 +49,13 @@
                 .HasForeignKey(g => g.TurnOwnerId)
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
+            // GameOwner 1:M Game
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.OwnedGames)
+                .WithOne(e => e.GameOwner)
+                .HasForeignKey(e => e.GameOwnerId)
+                .OnDelete(DeleteBehavior.SetNull);
             // City 1:M Games
 
             modelBuilder.Entity<City>()
