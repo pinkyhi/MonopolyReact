@@ -25,6 +25,8 @@
 
         public int Money { get; set; }
 
+        public IEnumerable<Game> TurnOwnings { get; set; }
+
         public IEnumerable<GameCard> Cards { get; set; }
 
         public IEnumerable<GameStreet> Streets { get; set; }

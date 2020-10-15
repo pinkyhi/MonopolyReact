@@ -189,11 +189,8 @@ namespace Monopoly.DAL.Migrations
                     b.Property<int>("SettingsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TurnOwnerId")
+                    b.Property<int?>("TurnOwnerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TurnOwnerId1")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -202,7 +199,7 @@ namespace Monopoly.DAL.Migrations
                     b.HasIndex("SettingsId")
                         .IsUnique();
 
-                    b.HasIndex("TurnOwnerId1");
+                    b.HasIndex("TurnOwnerId");
 
                     b.ToTable("Games");
                 });
@@ -940,9 +937,9 @@ namespace Monopoly.DAL.Migrations
             modelBuilder.Entity("Monopoly.DAL.Entities.Game", b =>
                 {
                     b.HasOne("Monopoly.DAL.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Games")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Monopoly.DAL.Entities.GameSettings", "GameSettings")
@@ -951,9 +948,9 @@ namespace Monopoly.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Monopoly.DAL.Entities.User", "TurnOwner")
-                        .WithMany()
-                        .HasForeignKey("TurnOwnerId1");
+                    b.HasOne("Monopoly.DAL.Entities.JoinEntities.Membership", "TurnOwner")
+                        .WithMany("TurnOwnings")
+                        .HasForeignKey("TurnOwnerId");
                 });
 
             modelBuilder.Entity("Monopoly.DAL.Entities.GameEntities.MovementField", b =>

@@ -12,6 +12,8 @@
 
         public User Author { get; set; }
 
+        public IEnumerable<Game> Games { get; set; }
+
         public IEnumerable<CityCard> CityCards { get; set; }
 
         public IEnumerable<CityStreet> CityStreets { get; set; }

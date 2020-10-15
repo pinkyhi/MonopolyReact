@@ -1,9 +1,9 @@
-﻿namespace Monopoly.DAL.Migrations
-{
-    using System;
-    using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
-    public partial class GameLogic : Migration
+namespace Monopoly.DAL.Migrations
+{
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -296,6 +296,29 @@
                 });
 
             migrationBuilder.CreateTable(
+                name: "RefreshTokens",
+                columns: table => new
+                {
+                    Token = table.Column<string>(nullable: false),
+                    JwtId = table.Column<string>(nullable: true),
+                    CreatrionDate = table.Column<DateTime>(nullable: false),
+                    ExpiryDate = table.Column<DateTime>(nullable: false),
+                    Used = table.Column<bool>(nullable: false),
+                    Invalidated = table.Column<bool>(nullable: false),
+                    UserId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Token);
+                    table.ForeignKey(
+                        name: "FK_RefreshTokens_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "MovementField",
                 columns: table => new
                 {
@@ -425,41 +448,6 @@
                 });
 
             migrationBuilder.CreateTable(
-                name: "Games",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SettingsId = table.Column<int>(nullable: false),
-                    CityId = table.Column<int>(nullable: false),
-                    GameStatus = table.Column<int>(nullable: false),
-                    TurnOwnerId = table.Column<int>(nullable: false),
-                    TurnOwnerId1 = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Games", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Games_City_CityId",
-                        column: x => x.CityId,
-                        principalTable: "City",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Games_GameSettings_SettingsId",
-                        column: x => x.SettingsId,
-                        principalTable: "GameSettings",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Games_AspNetUsers_TurnOwnerId1",
-                        column: x => x.TurnOwnerId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "CityMovementField",
                 columns: table => new
                 {
@@ -565,15 +553,43 @@
                 {
                     table.PrimaryKey("PK_Memberships", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Memberships_Games_GameId",
-                        column: x => x.GameId,
-                        principalTable: "Games",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Memberships_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Games",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    SettingsId = table.Column<int>(nullable: false),
+                    CityId = table.Column<int>(nullable: false),
+                    GameStatus = table.Column<int>(nullable: false),
+                    TurnOwnerId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Games", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Games_City_CityId",
+                        column: x => x.CityId,
+                        principalTable: "City",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Games_GameSettings_SettingsId",
+                        column: x => x.SettingsId,
+                        principalTable: "GameSettings",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Games_Memberships_TurnOwnerId",
+                        column: x => x.TurnOwnerId,
+                        principalTable: "Memberships",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -872,9 +888,9 @@
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Games_TurnOwnerId1",
+                name: "IX_Games_TurnOwnerId",
                 table: "Games",
-                column: "TurnOwnerId1");
+                column: "TurnOwnerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_GameStreet_GameId",
@@ -904,13 +920,42 @@
                 column: "MultiplyMonopolyId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_StreetField_StreetMonopolyId",
                 table: "StreetField",
                 column: "StreetMonopolyId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Memberships_Games_GameId",
+                table: "Memberships",
+                column: "GameId",
+                principalTable: "Games",
+                principalColumn: "Id",
+                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_City_AspNetUsers_AuthorId1",
+                table: "City");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Memberships_AspNetUsers_UserId",
+                table: "Memberships");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Games_City_CityId",
+                table: "Games");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Memberships_Games_GameId",
+                table: "Memberships");
+
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
@@ -942,6 +987,9 @@
                 name: "GameStreet");
 
             migrationBuilder.DropTable(
+                name: "RefreshTokens");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -955,9 +1003,6 @@
 
             migrationBuilder.DropTable(
                 name: "CityMultiplyField");
-
-            migrationBuilder.DropTable(
-                name: "Memberships");
 
             migrationBuilder.DropTable(
                 name: "CityStreet");
@@ -978,9 +1023,6 @@
                 name: "MultiplyField");
 
             migrationBuilder.DropTable(
-                name: "Games");
-
-            migrationBuilder.DropTable(
                 name: "StreetField");
 
             migrationBuilder.DropTable(
@@ -990,16 +1032,22 @@
                 name: "MultiplyMonopoly");
 
             migrationBuilder.DropTable(
+                name: "StreetMonopoly");
+
+            migrationBuilder.DropTable(
+                name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
                 name: "City");
+
+            migrationBuilder.DropTable(
+                name: "Games");
 
             migrationBuilder.DropTable(
                 name: "GameSettings");
 
             migrationBuilder.DropTable(
-                name: "StreetMonopoly");
-
-            migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "Memberships");
         }
     }
 }

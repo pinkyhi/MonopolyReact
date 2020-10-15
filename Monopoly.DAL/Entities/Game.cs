@@ -16,9 +16,9 @@
 
         public int GameStatus { get; set; }
 
-        public int TurnOwnerId { get; set; }
+        public int? TurnOwnerId { get; set; }
 
-        public User TurnOwner { get; set; }
+        public Membership TurnOwner { get; set; }
 
         public IEnumerable<Membership> Membership { get; set; }
 

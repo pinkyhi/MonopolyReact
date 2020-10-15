@@ -10,8 +10,8 @@ using Monopoly.DAL;
 namespace Monopoly.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201013120548_GameLogic")]
-    partial class GameLogic
+    [Migration("20201015112711_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -191,11 +191,8 @@ namespace Monopoly.DAL.Migrations
                     b.Property<int>("SettingsId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TurnOwnerId")
+                    b.Property<int?>("TurnOwnerId")
                         .HasColumnType("int");
-
-                    b.Property<string>("TurnOwnerId1")
-                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -204,7 +201,7 @@ namespace Monopoly.DAL.Migrations
                     b.HasIndex("SettingsId")
                         .IsUnique();
 
-                    b.HasIndex("TurnOwnerId1");
+                    b.HasIndex("TurnOwnerId");
 
                     b.ToTable("Games");
                 });
@@ -782,6 +779,37 @@ namespace Monopoly.DAL.Migrations
                     b.ToTable("Memberships");
                 });
 
+            modelBuilder.Entity("Monopoly.DAL.Entities.RefreshToken", b =>
+                {
+                    b.Property<string>("Token")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatrionDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("ExpiryDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("Invalidated")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("JwtId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Used")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Token");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("Monopoly.DAL.Entities.User", b =>
                 {
                     b.Property<string>("Id")
@@ -911,9 +939,9 @@ namespace Monopoly.DAL.Migrations
             modelBuilder.Entity("Monopoly.DAL.Entities.Game", b =>
                 {
                     b.HasOne("Monopoly.DAL.Entities.City", "City")
-                        .WithMany()
+                        .WithMany("Games")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Monopoly.DAL.Entities.GameSettings", "GameSettings")
@@ -922,9 +950,9 @@ namespace Monopoly.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Monopoly.DAL.Entities.User", "TurnOwner")
-                        .WithMany()
-                        .HasForeignKey("TurnOwnerId1");
+                    b.HasOne("Monopoly.DAL.Entities.JoinEntities.Membership", "TurnOwner")
+                        .WithMany("TurnOwnings")
+                        .HasForeignKey("TurnOwnerId");
                 });
 
             modelBuilder.Entity("Monopoly.DAL.Entities.GameEntities.MovementField", b =>
@@ -1145,6 +1173,13 @@ namespace Monopoly.DAL.Migrations
 
                     b.HasOne("Monopoly.DAL.Entities.User", "User")
                         .WithMany("Membership")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Monopoly.DAL.Entities.RefreshToken", b =>
+                {
+                    b.HasOne("Monopoly.DAL.Entities.User", "User")
+                        .WithMany()
                         .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618

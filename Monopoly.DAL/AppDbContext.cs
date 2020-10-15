@@ -42,6 +42,21 @@
                 .WithOne(m => m.User)
                 .HasForeignKey(m => m.UserId);
 
+            // TurnOwner 1:M Game
+            modelBuilder.Entity<Game>()
+                .HasOne(g => g.TurnOwner)
+                .WithMany(m => m.TurnOwnings)
+                .HasForeignKey(g => g.TurnOwnerId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+
+            // City 1:M Games
+
+            modelBuilder.Entity<City>()
+                .HasMany(e => e.Games)
+                .WithOne(e => e.City)
+                .HasForeignKey(e => e.CityId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             // CityCardsIndexes
             modelBuilder.Entity<CityCard>()
                 .HasIndex(m => new { m.CityId, m.CardId })
