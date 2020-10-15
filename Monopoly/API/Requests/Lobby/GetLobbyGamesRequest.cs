@@ -2,5 +2,6 @@
 {
     public class GetLobbyGamesRequest
     {
+        public string SearchPart { get; set; }
     }
 }

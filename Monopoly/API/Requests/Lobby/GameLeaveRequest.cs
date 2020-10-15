@@ -2,5 +2,6 @@
 {
     public class GameLeaveRequest
     {
+        public int GameId { get; set; }
     }
 }

@@ -7,6 +7,12 @@
 
     public class Game : BaseEntity
     {
+        [MaxLength(32)]
+        public string Title { get; set; }
+
+        [Range(0, 6)]
+        public int Capacity { get; set; }
+
         public int SettingsId { get; set; }
 
         public GameSettings GameSettings { get; set; }
