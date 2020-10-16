@@ -4,7 +4,7 @@
 
     public class GameResponse
     {
-        public LobbyGameViewModel Game { get; set; }
+        public GameViewModel Game { get; set; }
 
         public GameSettingsViewModel Settings { get; set; }
     }

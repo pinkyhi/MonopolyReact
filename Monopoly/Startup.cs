@@ -15,6 +15,8 @@ namespace Monopoly
     using Microsoft.IdentityModel.Logging;
     using Microsoft.IdentityModel.Tokens;
     using Microsoft.OpenApi.Models;
+    using Monopoly.BL.Interfaces;
+    using Monopoly.BL.Services;
     using Monopoly.Core.Options;
     using Monopoly.DAL;
     using Monopoly.DAL.Entities;
@@ -23,6 +25,9 @@ namespace Monopoly
     using Monopoly.DAL.Repositories;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
+    using Monopoly.Hubs;
+    using Monopoly.Hubs.Interfaces;
+    using Monopoly.Hubs.Services;
     using Monopoly.Mapper;
     using Monopoly.WebServices.Interfaces;
     using Monopoly.WebServices.Services;
@@ -44,11 +49,13 @@ namespace Monopoly
         {
             IdentityModelEventSource.ShowPII = true;
             this.InstallFilters(services);
+            this.InstallPresentation(services);
             this.InstallBussinessLogic(services);
             this.InstallJwt(services);
             this.InstallServices(services);
             this.InstallDataAccess(services);
             this.InstallSwagger(services);
+            this.InstallHubs(services);
             this.InstallAutoMapper(services);
 
             services.AddMvc().ConfigureApiBehaviorOptions(options =>
@@ -77,15 +84,17 @@ namespace Monopoly
                 }
 
                 app.UseHttpsRedirection();
-
                 app.UseRouting();
-
+                app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
                 app.UseAuthorization();
-
+                app.UseAuthentication();
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapControllers();
+                    endpoints.MapHub<LobbyHub>("/lobbyhub");
+                    endpoints.MapHub<GameHub>("/gamehub");
                 });
+
             }
             catch (Exception ex)
             {
@@ -198,6 +207,18 @@ namespace Monopoly
             }).AddEntityFrameworkStores<AppDbContext>();
 
             services.BuildServiceProvider().GetService<AppDbContext>().Database.Migrate();
+        }
+
+        private void InstallPresentation(IServiceCollection services)
+        {
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<ILobbyService, LobbyService>();
+        }
+
+        private void InstallHubs(IServiceCollection services)
+        {
+            services.AddSingleton<ILobbyHubService, LobbyHubService>();
+            services.AddSingleton<IGameHubService, GameHubService>();
         }
 
         private void InstallAutoMapper(IServiceCollection services)

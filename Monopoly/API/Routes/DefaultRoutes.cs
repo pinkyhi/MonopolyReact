@@ -18,5 +18,16 @@
 
             public const string RefreshToken = Base + "/identity/refreshToken";
         }
+
+        public static class Lobby
+        {
+            public const string GameCreate = Base + "/lobby/game";
+
+            public const string GameJoin = Base + "/lobby/game";
+
+            public const string GameLeave = Base + "/lobby/game";
+
+            public const string GetGames = Base + "/lobby";
+        }
     }
 }

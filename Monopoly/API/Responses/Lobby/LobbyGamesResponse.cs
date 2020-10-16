@@ -5,6 +5,6 @@
 
     public class LobbyGamesResponse
     {
-        IEnumerable<LobbyGameViewModel> Games { get; set; }
+        public IEnumerable<GameViewModel> Games { get; set; }
     }
 }

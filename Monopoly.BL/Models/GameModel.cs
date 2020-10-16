@@ -1,12 +1,14 @@
-﻿namespace Monopoly.API.ViewModels
+﻿namespace Monopoly.BL.Models
 {
-    public class LobbyGameViewModel
+    public class GameModel
     {
         public int GameId { get; set; }
 
         public string Title { get; set; }
 
         public int GameStatus { get; set; }
+
+        public bool Password { get; set; }
 
         public int CountNow { get; set; }
 
