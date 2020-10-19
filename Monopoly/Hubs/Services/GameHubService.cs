@@ -2,7 +2,7 @@
 {
     using Monopoly.Hubs.Interfaces;
 
-    public class GameHubService : IGameHubService
+    public class GameHubService : GroupHubService, IGameHubService
     {
     }
 }

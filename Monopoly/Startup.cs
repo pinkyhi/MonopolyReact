@@ -2,6 +2,7 @@ namespace Monopoly
 {
     using System;
     using System.Collections.Generic;
+    using System.Reflection;
     using System.Text;
     using AutoMapper;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -62,6 +63,7 @@ namespace Monopoly
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+            services.AddSignalR();
             services.AddControllers();
         }
 
@@ -225,6 +227,7 @@ namespace Monopoly
         {
             var mapperConfig = new MapperConfiguration(mc =>
             {
+                mc.AddMaps(Assembly.GetExecutingAssembly());
                 mc.AddProfile(new MapperProfile());
             });
 

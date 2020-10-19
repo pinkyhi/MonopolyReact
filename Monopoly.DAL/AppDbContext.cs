@@ -233,6 +233,33 @@
                 .WithOne(e => e.Street)
                 .HasForeignKey(e => e.StreetId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Database InitValues
+            modelBuilder.Entity<GameSettings>().HasData(
+            new GameSettings[]
+            {
+                new GameSettings
+                {
+                    Id = 1,
+                    DoubleBreaksJail = true,
+                    DoublePayOnUnbuildedMonopoly = true,
+                    StartMoney = 1000,
+                    RightStartHitAward = 250,
+                    AnytimeBuilding = false,
+                    AnytimeExchange = false,
+                    Auction = true,
+                    DoublesCountForArrest = 3,
+                    DoubleRepeatsTurn = true,
+                    ImprisonmentDuration = 3,
+                    BuildingBalancing = true,
+                    CasinoType = 0,
+                    FullCollateralValue = true,
+                    HotelsCount = 16,
+                    HousesCount = 48,
+                    JailbreakPrice = 150,
+                    MovementFields = true
+                }
+            });
         }
     }
 }

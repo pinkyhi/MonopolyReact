@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.API.ViewModels
 {
+    using AutoMapper;
+    using Monopoly.BL.Models;
+
+    [AutoMap(typeof(GameSettingsModel))]
     public class GameSettingsViewModel
     {
         public int GameSettingsId { get; set; }

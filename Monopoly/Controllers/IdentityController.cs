@@ -10,6 +10,7 @@
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
     using Monopoly.WebServices.Interfaces;
+    using Monopoly.WebServices.Results;
 
     [ApiController]
     [ModelValidation]
@@ -37,7 +38,6 @@
         public async Task<IActionResult> Login([FromBody] UserLoginRequest request)
         {
             var authResult = await this.identityService.LoginAsync(request.Email, request.Password);
-
             return this.Ok(this.mapper.Map<AuthSuccessResponse>(authResult));
         }
 

@@ -1,15 +1,13 @@
-﻿namespace Monopoly.API.Requests.Lobby
+﻿namespace Monopoly.BL.Contracts
 {
     using System.ComponentModel.DataAnnotations;
-    using AutoMapper;
-    using Monopoly.BL.Contracts;
 
-    [AutoMap(typeof(GameCreateContract), ReverseMap = true)]
-    public class GameCreateRequest
+    public class GameCreateContract
     {
         [MaxLength(32)]
         public string Title { get; set; }
 
+        [Required]
         public int SettingsId { get; set; }
 
         public int CityId { get; set; }
@@ -19,5 +17,7 @@
 
         [MaxLength(16)]
         public string Password { get; set; }
+
+        public string GameOwnerId { get; set; }
     }
 }

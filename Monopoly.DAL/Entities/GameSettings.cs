@@ -10,8 +10,6 @@
 
         public int JailbreakPrice { get; set; }
 
-        public int ImprisonmentTurnsCount { get; set; }
-
         public int HousesCount { get; set; }
 
         public int HotelsCount { get; set; }
@@ -20,7 +18,7 @@
 
         public int CasinoType { get; set; }
 
-        public int? DoublesCountsForArrest { get; set; }
+        public int? DoublesCountForArrest { get; set; }
 
         public bool DoubleRepeatsTurn { get; set; }
 
