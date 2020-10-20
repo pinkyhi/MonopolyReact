@@ -31,5 +31,10 @@
             NotFoundRefreshToken = 4011,
             WrongJtiRefreshToken = 4012
         }
+
+        public enum Lobby
+        {
+            GameIsFull = 6001
+        }
     }
 }

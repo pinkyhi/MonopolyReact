@@ -15,8 +15,6 @@
 
         public int Order { get; set; }
 
-        public int UserStatus { get; set; }
-
         public int PlayerStatus { get; set; }
 
         public int TurnArgument { get; set; }

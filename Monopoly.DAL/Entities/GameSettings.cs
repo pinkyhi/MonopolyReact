@@ -1,6 +1,7 @@
 ﻿namespace Monopoly.DAL.Entities
 {
     using Monopoly.DAL.Entities.BaseEntities;
+    using System.Collections.Generic;
 
     public class GameSettings : BaseEntity
     {
@@ -38,6 +39,6 @@
 
         public bool DoubleBreaksJail { get; set; }
 
-        public Game Game { get; set; }
+        public IEnumerable<Game> Games { get; set; }
     }
 }

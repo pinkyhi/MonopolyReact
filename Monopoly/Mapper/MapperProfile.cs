@@ -1,11 +1,15 @@
 ﻿namespace Monopoly.Mapper
 {
     using AutoMapper;
+    using Monopoly.BL.Models;
+    using Monopoly.DAL.Entities;
 
     public class MapperProfile : Profile
     {
         public MapperProfile()
         {
+            this.CreateMap<Game, GameModel>()
+                .ForMember(g => g.Password, e => e.MapFrom(o => string.IsNullOrEmpty(o.Password)));
         }
     }
 }

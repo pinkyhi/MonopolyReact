@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Monopoly.DAL;
 
 namespace Monopoly.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201020125056_DeprecateStatus")]
+    partial class DeprecateStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -183,7 +185,7 @@ namespace Monopoly.DAL.Migrations
                     b.Property<int>("Capacity")
                         .HasColumnType("int");
 
-                    b.Property<int?>("CityId")
+                    b.Property<int>("CityId")
                         .HasColumnType("int");
 
                     b.Property<string>("GameOwnerId")
@@ -197,8 +199,7 @@ namespace Monopoly.DAL.Migrations
                         .HasMaxLength(16);
 
                     b.Property<int>("SettingsId")
-                        .HasColumnType("int")
-                        .HasDefaultValue(1);
+                        .HasColumnType("int");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(32)")
@@ -213,7 +214,8 @@ namespace Monopoly.DAL.Migrations
 
                     b.HasIndex("GameOwnerId");
 
-                    b.HasIndex("SettingsId");
+                    b.HasIndex("SettingsId")
+                        .IsUnique();
 
                     b.HasIndex("TurnOwnerId");
 
@@ -972,7 +974,8 @@ namespace Monopoly.DAL.Migrations
                     b.HasOne("Monopoly.DAL.Entities.City", "City")
                         .WithMany("Games")
                         .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Monopoly.DAL.Entities.User", "GameOwner")
                         .WithMany("OwnedGames")
@@ -980,8 +983,8 @@ namespace Monopoly.DAL.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("Monopoly.DAL.Entities.GameSettings", "GameSettings")
-                        .WithMany("Games")
-                        .HasForeignKey("SettingsId")
+                        .WithOne("Game")
+                        .HasForeignKey("Monopoly.DAL.Entities.Game", "SettingsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

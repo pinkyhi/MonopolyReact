@@ -225,9 +225,13 @@ namespace Monopoly
 
         private void InstallAutoMapper(IServiceCollection services)
         {
+            var blAssembly = Assembly.Load("Monopoly.BL");
+            var dalAssembly = Assembly.Load("Monopoly.DAL");
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddMaps(Assembly.GetExecutingAssembly());
+                mc.AddMaps(blAssembly);
+                mc.AddMaps(dalAssembly);
                 mc.AddProfile(new MapperProfile());
             });
 

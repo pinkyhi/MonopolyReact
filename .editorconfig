@@ -8,3 +8,9 @@ dotnet_diagnostic.Nix05.severity = silent
 
 # Nix01: Line is too long
 dotnet_diagnostic.Nix01.severity = silent
+
+# IDE0058: Expression value is never used
+csharp_style_unused_value_expression_statement_preference = discard_variable:silent
+
+# SA1118: Parameter must not span multiple lines
+dotnet_diagnostic.SA1118.severity = silent

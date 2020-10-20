@@ -79,6 +79,15 @@ namespace Monopoly.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Game is full already.
+        /// </summary>
+        public static string GameIsFullException {
+            get {
+                return ResourceManager.GetString("GameIsFullException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong on server.
         /// </summary>
         public static string GuessNumberException {

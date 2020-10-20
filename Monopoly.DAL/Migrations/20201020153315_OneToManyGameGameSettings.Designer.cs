@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Monopoly.DAL;
 
 namespace Monopoly.DAL.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201020153315_OneToManyGameGameSettings")]
+    partial class OneToManyGameGameSettings
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -196,7 +198,7 @@ namespace Monopoly.DAL.Migrations
                         .HasColumnType("nvarchar(16)")
                         .HasMaxLength(16);
 
-                    b.Property<int>("SettingsId")
+                    b.Property<int?>("SettingsId")
                         .HasColumnType("int")
                         .HasDefaultValue(1);
 
@@ -982,8 +984,7 @@ namespace Monopoly.DAL.Migrations
                     b.HasOne("Monopoly.DAL.Entities.GameSettings", "GameSettings")
                         .WithMany("Games")
                         .HasForeignKey("SettingsId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Monopoly.DAL.Entities.JoinEntities.Membership", "TurnOwner")
                         .WithMany("TurnOwnings")

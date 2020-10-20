@@ -1,6 +1,7 @@
 ﻿namespace Monopoly.DAL.Entities
 {
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using Monopoly.DAL.Entities.BaseEntities;
     using Monopoly.DAL.Entities.JoinEntities;
@@ -17,7 +18,7 @@
 
         public GameSettings GameSettings { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
         public City City { get; set; }
 

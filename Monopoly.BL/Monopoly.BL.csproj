@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.0" />
     <PackageReference Include="Nix.StyleCop.Analyzers" Version="1.0.19" />
   </ItemGroup>
 

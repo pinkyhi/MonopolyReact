@@ -19,5 +19,9 @@
         public int Capacity { get; set; }
 
         public string OwnerName { get; set; }
+
+        public int? CityId { get; set; }
+
+        public string CityName { get; set; }
     }
 }

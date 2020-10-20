@@ -6,6 +6,8 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.SignalR;
     using Monopoly.API.Requests.Lobby;
+    using Monopoly.BL.Contracts;
+    using Monopoly.BL.Interfaces;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
     using Monopoly.Hubs;
@@ -17,11 +19,13 @@
     {
         private readonly IMapper mapper;
         private readonly IHubContext<LobbyHub> hubContext;
+        private readonly ILobbyService lobbyService;
 
-        public LobbyController(IMapper mapper, IHubContext<LobbyHub> hubContext)
+        public LobbyController(IMapper mapper, IHubContext<LobbyHub> hubContext, ILobbyService lobbyService)
         {
             this.hubContext = hubContext;
             this.mapper = mapper;
+            this.lobbyService = lobbyService;
         }
 
         [HttpGet(API.Routes.DefaultRoutes.Lobby.GetGames)]
@@ -39,6 +43,7 @@
         [HttpPut(API.Routes.DefaultRoutes.Lobby.GameCreate)]
         public async Task<IActionResult> GameCreate([FromBody] GameCreateRequest request)
         {
+            await this.lobbyService.CreateGame(this.mapper.Map<GameCreateContract>(request));
             return this.Ok();
         }
 

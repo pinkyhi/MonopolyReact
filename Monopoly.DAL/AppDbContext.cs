@@ -27,8 +27,14 @@
         [System.Diagnostics.CodeAnalysis.SuppressMessage("DESIGN", "Nix02:Method is too long", Justification = "<FluentAPI>")]
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Game M:M User
             base.OnModelCreating(modelBuilder);
+
+            // Game.GameSettings Default
+            modelBuilder.Entity<Game>()
+                .Property(g => g.SettingsId)
+                .HasDefaultValue(1);
+
+            // Game M:M User
             modelBuilder.Entity<Membership>()
                 .HasIndex(m => new { m.GameId, m.UserId })
                 .IsUnique();
@@ -50,14 +56,13 @@
                 .OnDelete(DeleteBehavior.ClientSetNull);
 
             // GameOwner 1:M Game
-
             modelBuilder.Entity<User>()
                 .HasMany(e => e.OwnedGames)
                 .WithOne(e => e.GameOwner)
                 .HasForeignKey(e => e.GameOwnerId)
                 .OnDelete(DeleteBehavior.SetNull);
-            // City 1:M Games
 
+            // City 1:M Games
             modelBuilder.Entity<City>()
                 .HasMany(e => e.Games)
                 .WithOne(e => e.City)
@@ -93,11 +98,11 @@
             modelBuilder.Entity<GameStreet>()
                 .HasKey(e => new { e.StreetId, e.GameId });
 
-            // Game 1:1 Settings
+            // Game M:1 Settings
             modelBuilder.Entity<Game>()
                 .HasOne(g => g.GameSettings)
-                .WithOne(s => s.Game)
-                .HasForeignKey<Game>(g => g.SettingsId)
+                .WithMany(s => s.Games)
+                .HasForeignKey(g => g.SettingsId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             // GameFields M:1 Owner

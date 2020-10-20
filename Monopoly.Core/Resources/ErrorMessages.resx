@@ -123,6 +123,9 @@
   <data name="EmailOccupiedException" xml:space="preserve">
     <value>This email is already occupied</value>
   </data>
+  <data name="GameIsFullException" xml:space="preserve">
+    <value>Game is full already</value>
+  </data>
   <data name="GuessNumberException" xml:space="preserve">
     <value>Something went wrong on server</value>
   </data>

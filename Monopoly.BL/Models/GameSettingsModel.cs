@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.BL.Models
 {
+    using AutoMapper;
+    using Monopoly.DAL.Entities;
+
+    [AutoMap(typeof(GameSettings))]
     public class GameSettingsModel
     {
         public int GameSettingsId { get; set; }
