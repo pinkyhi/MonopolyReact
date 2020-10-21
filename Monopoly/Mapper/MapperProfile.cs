@@ -9,7 +9,9 @@
         public MapperProfile()
         {
             this.CreateMap<Game, GameModel>()
-                .ForMember(g => g.Password, e => e.MapFrom(o => string.IsNullOrEmpty(o.Password)));
+                .ForMember(g => g.Password, e => e.MapFrom(o => string.IsNullOrEmpty(o.Password)))
+                .ForMember(g => g.GameId, e => e.MapFrom(o => o.Id))
+                .ForMember(g => g.CityName, e => e.MapFrom(o => o.City.Id));
         }
     }
 }

@@ -126,6 +126,9 @@
   <data name="GameIsFullException" xml:space="preserve">
     <value>Game is full already</value>
   </data>
+  <data name="GamePasswordException" xml:space="preserve">
+    <value>Wrong game password</value>
+  </data>
   <data name="GuessNumberException" xml:space="preserve">
     <value>Something went wrong on server</value>
   </data>

@@ -34,7 +34,8 @@
 
         public enum Lobby
         {
-            GameIsFull = 6001
+            GameIsFull = 6001,
+            GameWrongPassword = 6002
         }
     }
 }

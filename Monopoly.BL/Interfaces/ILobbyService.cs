@@ -8,12 +8,12 @@
 
     public interface ILobbyService
     {
-        public IEnumerable<GameModel> GetLobbyGames();
+        public Task<IEnumerable<GameModel>> GetLobbyGames(string searchPart);
 
-        public Task<GameResult> CreateGame(GameCreateContract game);
+        public Task<GameResult> CreateGame(GameCreateContract gameContract);
 
-        public GameResult JoinGame(GameJoinContract game);
+        public Task<GameResult> JoinGame(GameJoinContract gameContract);
 
-        public void LeaveGame(GameLeaveContract game);
+        public Task LeaveGame(GameLeaveContract gameContract);
     }
 }

@@ -1,7 +1,6 @@
 ﻿namespace Monopoly.DAL.Entities
 {
     using System.Collections.Generic;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
     using Monopoly.DAL.Entities.BaseEntities;
     using Monopoly.DAL.Entities.JoinEntities;

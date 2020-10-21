@@ -88,6 +88,15 @@ namespace Monopoly.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wrong game password.
+        /// </summary>
+        public static string GamePasswordException {
+            get {
+                return ResourceManager.GetString("GamePasswordException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Something went wrong on server.
         /// </summary>
         public static string GuessNumberException {

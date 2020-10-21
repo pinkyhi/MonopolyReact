@@ -5,6 +5,7 @@
         New = 0,
         Processing,
         Interrupted,
-        Ended
+        Ended,
+        OwnerLeaved
     }
 }

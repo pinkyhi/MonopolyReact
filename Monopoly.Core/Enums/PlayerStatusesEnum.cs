@@ -5,6 +5,7 @@
         InLobby = 0,
         Playing = 1,
         Imprisoned = 2,
-        BankRupt = 3
+        BankRupt = 3,
+        Leaved = 4
     }
 }

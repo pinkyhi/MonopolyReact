@@ -13,16 +13,19 @@
     using Monopoly.DAL.Entities;
     using Monopoly.DAL.Entities.JoinEntities;
     using Monopoly.DAL.Interfaces;
+    using Monopoly.DAL.Managers;
 
     public class LobbyService : ILobbyService
     {
         private readonly IRepository repository;
         private readonly IMapper mapper;
+        private readonly UserManager userManager;
 
-        public LobbyService(IRepository repository, IMapper mapper)
+        public LobbyService(IRepository repository, IMapper mapper, UserManager userManager)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.userManager = userManager;
         }
 
         public async Task<GameResult> CreateGame(GameCreateContract game)
@@ -30,7 +33,7 @@
             Game newGame = this.mapper.Map<Game>(game);
             newGame.GameStatus = (int)GameStatusesEnum.New;
             newGame = await this.repository.AddAsync(newGame);
-            await this.AddNewPlayer(newGame, game.GameOwnerId, newGame.Capacity);
+            await this.AddNewPlayer(newGame, game.GameOwnerId, password: game.Password);
 
             Game gameFinal = await this.repository.GetAsync<Game>(false, g => g.Id == newGame.Id, g => g.City, g => g.GameSettings);
             GameResult result = new GameResult()
@@ -42,43 +45,87 @@
             return result;
         }
 
-        public IEnumerable<GameModel> GetLobbyGames()
+        public async Task<IEnumerable<GameModel>> GetLobbyGames(string searchPart)
         {
-            throw new System.NotImplementedException();
+            IEnumerable<Game> games;
+            if (string.IsNullOrEmpty(searchPart))
+            {
+                games = await this.repository.GetRangeAsync<Game>(false, g => g.GameStatus == (int)GameStatusesEnum.New, g => g.City, g => g.GameOwner);
+            }
+            else
+            {
+                games = await this.repository.GetRangeAsync<Game>(false, g => g.GameStatus == (int)GameStatusesEnum.New && g.Title.Contains(searchPart.Trim()), g => g.City, g => g.GameOwner);
+            }
+            IEnumerable<GameModel> gameModels = games.Select(g => this.mapper.Map<GameModel>(g));
+            return gameModels;
         }
 
-        public GameResult JoinGame(GameJoinContract game)
+        public async Task<GameResult> JoinGame(GameJoinContract gameContract)
         {
-            throw new System.NotImplementedException();
+            Game game = await this.repository.GetAsync<Game>(false, g => g.Id == gameContract.GameId, g => g.Membership);
+            await this.AddNewPlayer(game, gameContract.UserId, password: gameContract.Password);
+
+            Game updatedGame = await this.repository.GetAsync<Game>(false, g => g.Id == gameContract.GameId);
+            return this.mapper.Map<GameResult>(updatedGame);
         }
 
-        public void LeaveGame(GameLeaveContract game)
+        public async Task LeaveGame(GameLeaveContract gameContract)
         {
-            throw new System.NotImplementedException();
+            Game game = await this.repository.GetAsync<Game>(true, g => g.Id == gameContract.GameId, g => g.Membership);
+            if (game.GameOwnerId.Equals(gameContract.UserId))
+            {
+                game.GameStatus = (int)GameStatusesEnum.OwnerLeaved;
+                game.Membership.First(m => m.UserId == gameContract.UserId).PlayerStatus = (int)PlayerStatusesEnum.Leaved;
+            }
+            else
+            {
+                game.Membership.First(m => m.UserId == gameContract.UserId).PlayerStatus = (int)PlayerStatusesEnum.Leaved;
+            }
+
+            await this.repository.UpdateAsync(game);
         }
 
-        private async Task AddNewPlayer(Game game, string userId, int capacity, int playerStatus = (int)PlayerStatusesEnum.InLobby)
+        private async Task AddNewPlayer(Game game, string userId, int playerStatus = (int)PlayerStatusesEnum.InLobby, string password = null)
         {
             int countOfPlayers = await this.CheckCountOfPlayers(game.Id);
-            if (countOfPlayers < capacity)
+            if (countOfPlayers < game.Capacity)
             {
-                Membership membership = new Membership()
+                if (this.CheckGamePassword(game, password))
                 {
-                    GameId = game.Id,
-                    UserId = userId,
-                    PlayerStatus = playerStatus
-                };
-                if (game.Membership == null)
-                {
-                    game.Membership = new List<Membership>();
-                }
+                    Membership membership = new Membership()
+                    {
+                        GameId = game.Id,
+                        UserId = userId,
+                        PlayerStatus = playerStatus
+                    };
+                    if (game.Membership == null)
+                    {
+                        game.Membership = new List<Membership>();
+                    }
 
-                game.Membership.Append(membership);
-                await this.repository.UpdateAsync(game);
+                    game.Membership.Append(membership);
+                    await this.repository.UpdateAsync(game);
+                }
+                else
+                {
+                    throw new GamePasswordException();
+                }
             }
             else
             {
                 throw new GameIsFullException();
+            }
+        }
+
+        private bool CheckGamePassword(Game game, string password = null)
+        {
+            if (string.IsNullOrEmpty(game.Password))
+            {
+                return true;
+            }
+            else
+            {
+                return game.Password.Equals(password);
             }
         }
 
