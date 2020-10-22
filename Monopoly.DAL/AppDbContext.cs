@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using Monopoly.DAL.Entities;
+    using Monopoly.DAL.Entities.GameEntities;
     using Monopoly.DAL.Entities.JoinEntities;
 
     public class AppDbContext : IdentityDbContext<User>
@@ -238,6 +239,28 @@
                 .WithOne(e => e.Street)
                 .HasForeignKey(e => e.StreetId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            // Fields M:1 Monopoly
+            modelBuilder.Entity<CityCard>()
+                .HasOne(c => c.CardGroup)
+                .WithMany(e => e.CityCards)
+                .HasForeignKey(c => c.CardGroupId)
+                .OnDelete(DeleteBehavior.ClientCascade);
+            modelBuilder.Entity<StreetField>()
+                .HasOne(s => s.StreetMonopoly)
+                .WithMany(m => m.Streets)
+                .HasForeignKey(s => s.StreetMonopolyId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<MovementField>()
+                .HasOne(s => s.MovementMonopoly)
+                .WithMany(m => m.MovementFields)
+                .HasForeignKey(s => s.MovementMonopolyId)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<MultiplyField>()
+                .HasOne(s => s.MultiplyMonopoly)
+                .WithMany(m => m.MultiplyFields)
+                .HasForeignKey(s => s.MultiplyMonopolyId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Database InitValues
             modelBuilder.Entity<GameSettings>().HasData(

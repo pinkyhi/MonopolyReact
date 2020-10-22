@@ -13,7 +13,6 @@
     using Monopoly.BL.Interfaces;
     using Monopoly.BL.Models;
     using Monopoly.BL.Results;
-    using Monopoly.Core.Resources;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
     using Monopoly.Hubs;
