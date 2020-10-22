@@ -54,8 +54,9 @@
             }
             else
             {
-                games = await this.repository.GetRangeAsync<Game>(false, g => g.GameStatus == (int)GameStatusesEnum.New && g.Title.Contains(searchPart.Trim()), g => g.City, g => g.GameOwner);
+                games = await this.repository.GetRangeAsync<Game>(false, g => g.GameStatus == (int)GameStatusesEnum.New && g.Title.ToLower().Contains(searchPart.Trim().ToLower()), g => g.City, g => g.GameOwner);
             }
+
             IEnumerable<GameModel> gameModels = games.Select(g => this.mapper.Map<GameModel>(g));
             return gameModels;
         }

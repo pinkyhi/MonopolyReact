@@ -46,7 +46,11 @@
         [HttpPost(API.Routes.DefaultRoutes.Lobby.GameJoin)]
         public async Task<IActionResult> GameJoin([FromBody] GameJoinRequest request)
         {
+            GameJoinContract joinContract = this.mapper.Map<GameJoinContract>(request);
 
+            // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
+            // joinContract.UserId = userId;
+            await this.lobbyService.JoinGame(joinContract);
             return this.Ok();
         }
 
@@ -54,6 +58,7 @@
         public async Task<IActionResult> GameCreate([FromBody] GameCreateRequest request)
         {
             GameCreateContract createContract = this.mapper.Map<GameCreateContract>(request);
+
             // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
             // createContract.GameOwnerId = userId;
             GameResult result = await this.lobbyService.CreateGame(createContract);
@@ -63,6 +68,11 @@
         [HttpPatch(API.Routes.DefaultRoutes.Lobby.GameLeave)]
         public async Task<IActionResult> GameLeave([FromBody] GameLeaveRequest request)
         {
+            GameLeaveContract leaveContract = this.mapper.Map<GameLeaveContract>(request);
+
+            // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
+            // leaveContract.UserId = userId;
+            await this.lobbyService.LeaveGame(leaveContract);
             return this.Ok();
         }
     }
