@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.BL.Models.City
 {
+    using AutoMapper;
+    using Monopoly.DAL.Entities.JoinEntities;
+
+    [AutoMap(typeof(CityMovementField))]
     public class CityMovementFieldModel
     {
         public int Id { get; set; }

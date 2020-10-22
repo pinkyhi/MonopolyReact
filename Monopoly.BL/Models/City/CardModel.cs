@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.BL.Models.City
 {
+    using AutoMapper;
+    using Monopoly.DAL.Entities.GameEntities.Cards;
+
+    [AutoMap(typeof(EventCard))]
     public class CardModel
     {
         public int Id { get; set; }

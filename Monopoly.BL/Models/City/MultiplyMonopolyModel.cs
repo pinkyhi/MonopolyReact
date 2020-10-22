@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.BL.Models.City
 {
+    using AutoMapper;
+    using Monopoly.DAL.Entities.GameEntities.Groups;
+
+    [AutoMap(typeof(MultiplyMonopoly))]
     public class MultiplyMonopolyModel
     {
         public int Id { get; set; }

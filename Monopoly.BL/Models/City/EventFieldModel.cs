@@ -1,5 +1,9 @@
 ﻿namespace Monopoly.BL.Models.City
 {
+    using AutoMapper;
+    using Monopoly.DAL.Entities.GameEntities;
+
+    [AutoMap(typeof(EventField))]
     public class EventFieldModel
     {
         public int Id { get; set; }

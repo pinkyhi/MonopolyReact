@@ -1,14 +1,25 @@
 ﻿namespace Monopoly.BL.Services
 {
     using System.Threading.Tasks;
+    using AutoMapper;
     using Monopoly.BL.Interfaces;
     using Monopoly.BL.Models.City;
+    using Monopoly.DAL.Interfaces;
 
     public class CityService : ICityService
     {
+        private readonly IRepository repository;
+        private readonly IMapper mapper;
+
+        public CityService(IRepository repository, IMapper mapper)
+        {
+            this.repository = repository;
+            this.mapper = mapper;
+        }
+
         public Task<CardModel> AddCard()
         {
-            throw new System.NotImplementedException();
+            repository.AddAsync<EventCard>()
         }
 
         public Task<CardGroupModel> AddCardGroup()
