@@ -25,6 +25,13 @@
             this.mapper = mapper;
         }
 
+        public async Task<CityModel> GetCityInfo(int cityId)
+        {
+            City result = await this.repository.GetAsync<City>(false, c => c.Id == cityId, c => c.CityStreets, c => c.CityMultiplyFields, c => c.CityMovementFields, c => c.CityEventFields, c => c.CityCards);
+            return this.mapper.Map<CityModel>(result);
+        }
+
+
         public async Task ConnectCards(int cityId, int cardGroupId)
         {
             IEnumerable<EventCard> cards = await this.repository.GetRangeAsync<EventCard>(false, c => c.CardGroupId == cardGroupId);
