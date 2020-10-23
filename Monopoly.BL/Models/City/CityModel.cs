@@ -11,6 +11,8 @@
 
         public string Name { get; set; }
 
+        public bool Publicity { get; set; }
+
         public IEnumerable<CityCardModel> CityCards { get; set; }
 
         public IEnumerable<CityStreetModel> CityStreets { get; set; }

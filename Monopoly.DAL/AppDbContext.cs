@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Monopoly.DAL.Entities;
     using Monopoly.DAL.Entities.GameEntities;
+    using Monopoly.DAL.Entities.GameEntities.Cards;
     using Monopoly.DAL.Entities.JoinEntities;
 
     public class AppDbContext : IdentityDbContext<User>
@@ -241,9 +242,9 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Fields M:1 Monopoly
-            modelBuilder.Entity<CityCard>()
+            modelBuilder.Entity<EventCard>()
                 .HasOne(c => c.CardGroup)
-                .WithMany(e => e.CityCards)
+                .WithMany(e => e.Cards)
                 .HasForeignKey(c => c.CardGroupId)
                 .OnDelete(DeleteBehavior.ClientCascade);
             modelBuilder.Entity<StreetField>()

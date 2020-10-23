@@ -12,6 +12,8 @@
 
         public User Author { get; set; }
 
+        public bool Publicity { get; set; }
+
         public IEnumerable<Game> Games { get; set; }
 
         public IEnumerable<CityCard> CityCards { get; set; }

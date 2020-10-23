@@ -1,9 +1,17 @@
 ﻿namespace Monopoly.BL.Services
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
+    using Monopoly.BL.Contracts.City;
     using Monopoly.BL.Interfaces;
     using Monopoly.BL.Models.City;
+    using Monopoly.DAL.Entities;
+    using Monopoly.DAL.Entities.GameEntities;
+    using Monopoly.DAL.Entities.GameEntities.Cards;
+    using Monopoly.DAL.Entities.GameEntities.Groups;
+    using Monopoly.DAL.Entities.JoinEntities;
     using Monopoly.DAL.Interfaces;
 
     public class CityService : ICityService
@@ -17,149 +25,168 @@
             this.mapper = mapper;
         }
 
-        public Task<CardModel> AddCard()
+        public async Task ConnectCards(int cityId, int cardGroupId)
         {
-            repository.AddAsync<EventCard>()
+            IEnumerable<EventCard> cards = await this.repository.GetRangeAsync<EventCard>(false, c => c.CardGroupId == cardGroupId);
+            IEnumerable<CityCard> cityCards = new List<CityCard>();
+            foreach (EventCard card in cards)
+            {
+                cityCards.Append(new CityCard() { CardId = card.Id, CityId = cityId });
+            }
+
+            await this.repository.AddRangeAsync(cityCards);
         }
 
-        public Task<CardGroupModel> AddCardGroup()
+        public async Task<CityCardModel> ChangeCityCardArguments(int cityCardId, string arguments)
         {
-            throw new System.NotImplementedException();
+            CityCard card = await this.repository.GetAsync<CityCard>(false, c => cityCardId == c.Id);
+            card.Arguments = arguments;
+            await this.repository.UpdateAsync(card);
+            return this.mapper.Map<CityCardModel>(card);
         }
 
-        public Task<CityModel> AddCity()
+        public async Task<CardModel> AddCard(CardModel model)
         {
-            throw new System.NotImplementedException();
+            EventCard result = await this.repository.AddAsync(this.mapper.Map<EventCard>(model));
+            return this.mapper.Map<CardModel>(result);
         }
 
-        public Task<EventFieldModel> AddEventField()
+        public async Task<CardGroupModel> AddCardGroup(CardGroupModel model)
         {
-            throw new System.NotImplementedException();
+            CardGroup result = await this.repository.AddAsync(this.mapper.Map<CardGroup>(model));
+            return this.mapper.Map<CardGroupModel>(result);
         }
 
-        public Task<MovementFieldModel> AddMovementField()
+        public async Task<CityModel> AddCity(CityModel model)
         {
-            throw new System.NotImplementedException();
+            City result = await this.repository.AddAsync(this.mapper.Map<City>(model));
+            return this.mapper.Map<CityModel>(result);
         }
 
-        public Task<MovementMonopolyModel> AddMovementMonopoly()
+        public async Task<EventFieldModel> AddEventField(EventFieldModel model)
         {
-            throw new System.NotImplementedException();
+            EventField result = await this.repository.AddAsync(this.mapper.Map<EventField>(model));
+            return this.mapper.Map<EventFieldModel>(result);
         }
 
-        public Task<MultiplyMonopolyModel> AddMuliplyMonopoly()
+        public async Task<MovementFieldModel> AddMovementField(MovementFieldModel model)
         {
-            throw new System.NotImplementedException();
+            MovementField result = await this.repository.AddAsync(this.mapper.Map<MovementField>(model));
+            return this.mapper.Map<MovementFieldModel>(result);
         }
 
-        public Task<MultiplyFieldModel> AddMultiplyField()
+        public async Task<MovementMonopolyModel> AddMovementMonopoly(MovementMonopolyModel model)
         {
-            throw new System.NotImplementedException();
+            MovementMonopoly result = await this.repository.AddAsync(this.mapper.Map<MovementMonopoly>(model));
+            return this.mapper.Map<MovementMonopolyModel>(result);
         }
 
-        public Task<StreetFieldModel> AddStreet()
+        public async Task<MultiplyMonopolyModel> AddMuliplyMonopoly(MultiplyMonopolyModel model)
         {
-            throw new System.NotImplementedException();
+            MultiplyMonopoly result = await this.repository.AddAsync(this.mapper.Map<MultiplyMonopoly>(model));
+            return this.mapper.Map<MultiplyMonopolyModel>(result);
         }
 
-        public Task<StreetMonopolyModel> AddStreetMonopoly()
+        public async Task<MultiplyFieldModel> AddMultiplyField(MultiplyFieldModel model)
         {
-            throw new System.NotImplementedException();
+            MultiplyField result = await this.repository.AddAsync(this.mapper.Map<MultiplyField>(model));
+            return this.mapper.Map<MultiplyFieldModel>(result);
         }
 
-        public Task<CityCardModel> ConnectCard()
+        public async Task<StreetFieldModel> AddStreet(StreetFieldModel model)
         {
-            throw new System.NotImplementedException();
+            StreetField result = await this.repository.AddAsync(this.mapper.Map<StreetField>(model));
+            return this.mapper.Map<StreetFieldModel>(result);
         }
 
-        public void ConnectCardGroup()
+        public async Task<StreetMonopolyModel> AddStreetMonopoly(StreetMonopolyModel model)
         {
-            throw new System.NotImplementedException();
+            StreetMonopoly result = await this.repository.AddAsync(this.mapper.Map<StreetMonopoly>(model));
+            return this.mapper.Map<StreetMonopolyModel>(result);
         }
 
-        public Task<CityEventFieldModel> ConnectEventField()
+        public async Task<CityEventFieldModel> ConnectEventField(CityEventFieldContract contract)
         {
-            throw new System.NotImplementedException();
+            CityEventField result = await this.repository.AddAsync(this.mapper.Map<CityEventField>(contract));
+            return this.mapper.Map<CityEventFieldModel>(result);
         }
 
-        public Task<CityMovementFieldModel> ConnectMovementField()
+        public async Task<CityMovementFieldModel> ConnectMovementField(CityMovementFieldContract contract)
         {
-            throw new System.NotImplementedException();
+            CityMovementField result = await this.repository.AddAsync(this.mapper.Map<CityMovementField>(contract));
+            return this.mapper.Map<CityMovementFieldModel>(result);
         }
 
-        public void ConnectMovementMonopoly()
+        public async Task<CityMultiplyFieldModel> ConnectMultiplyField(CityMovementFieldContract contract)
         {
-            throw new System.NotImplementedException();
+            CityMultiplyField result = await this.repository.AddAsync(this.mapper.Map<CityMultiplyField>(contract));
+            return this.mapper.Map<CityMultiplyFieldModel>(result);
         }
 
-        public Task<CityMultiplyFieldModel> ConnectMultiplyField()
+        public async Task<CityStreetModel> ConnectStreet(CityStreetContract contract)
         {
-            throw new System.NotImplementedException();
+            CityStreet result = await this.repository.AddAsync(this.mapper.Map<CityStreet>(contract));
+            return this.mapper.Map<CityStreetModel>(result);
         }
 
-        public void ConnectMultiplyMonopoly()
+        public async Task DeleteCard(int cardId)
         {
-            throw new System.NotImplementedException();
+            EventCard card = await this.repository.GetAsync<EventCard>(false, c => c.Id == cardId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public Task<CityStreetModel> ConnectStreet()
+        public async Task DeleteCardGroup(int cardGroupId)
         {
-            throw new System.NotImplementedException();
+            CardGroup card = await this.repository.GetAsync<CardGroup>(false, c => c.Id == cardGroupId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void ConnectStreetMonopoly()
+        public async Task DeleteCity(int cityId)
         {
-            throw new System.NotImplementedException();
+            City card = await this.repository.GetAsync<City>(false, c => c.Id == cityId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteCard()
+        public async Task DeleteEventField(int eventFieldId)
         {
-            throw new System.NotImplementedException();
+            EventField card = await this.repository.GetAsync<EventField>(false, c => c.Id == eventFieldId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteCardGroup()
+        public async Task DeleteMovementField(int movementFieldId)
         {
-            throw new System.NotImplementedException();
+            MovementField card = await this.repository.GetAsync<MovementField>(false, c => c.Id == movementFieldId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteCity()
+        public async Task DeleteMovementMonopoly(int movementMonopolyId)
         {
-            throw new System.NotImplementedException();
+            MovementMonopoly card = await this.repository.GetAsync<MovementMonopoly>(false, c => c.Id == movementMonopolyId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteEventField()
+        public async Task DeleteMultiplyField(int multiplyFieldId)
         {
-            throw new System.NotImplementedException();
+            MultiplyField card = await this.repository.GetAsync<MultiplyField>(false, c => c.Id == multiplyFieldId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteMovementField()
+        public async Task DeleteMultiplyMonopoly(int multiplyMonopolyId)
         {
-            throw new System.NotImplementedException();
+            MultiplyMonopoly card = await this.repository.GetAsync<MultiplyMonopoly>(false, c => c.Id == multiplyMonopolyId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteMovementMonopoly()
+        public async Task DeleteStreet(int streetId)
         {
-            throw new System.NotImplementedException();
+            StreetField card = await this.repository.GetAsync<StreetField>(false, c => c.Id == streetId);
+            await this.repository.DeleteAsync(card);
         }
 
-        public void DeleteMultiplyField()
+        public async Task DeleteStreetMonopoly(int streetMonopolyId)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteMultiplyMonopoly()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteStreet()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DeleteStreetMonopoly()
-        {
-            throw new System.NotImplementedException();
+            StreetMonopoly card = await this.repository.GetAsync<StreetMonopoly>(false, c => c.Id == streetMonopolyId);
+            await this.repository.DeleteAsync(card);
         }
     }
 }

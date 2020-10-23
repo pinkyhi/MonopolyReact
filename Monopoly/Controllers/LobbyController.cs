@@ -37,7 +37,7 @@
         public async Task<IActionResult> LobbyGames(string searchPart)
         {
             LobbyGamesResponse response = new LobbyGamesResponse();
-            IEnumerable<GameModel> gamesResult= await this.lobbyService.GetLobbyGames(searchPart);
+            IEnumerable<GameModel> gamesResult = await this.lobbyService.GetLobbyGames(searchPart);
             response.Games = gamesResult.Select(x => this.mapper.Map<GameViewModel>(x));
             return this.Ok(response);
         }

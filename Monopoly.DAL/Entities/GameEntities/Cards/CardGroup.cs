@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Monopoly.DAL.Entities.BaseEntities;
-    using Monopoly.DAL.Entities.JoinEntities;
 
     public class CardGroup : BaseEntity
     {
@@ -10,6 +9,6 @@
 
         public string Title { get; set; }
 
-        public IEnumerable<CityCard> CityCards { get; set; }
+        public IEnumerable<EventCard> Cards { get; set; }
     }
 }

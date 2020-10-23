@@ -14,6 +14,10 @@
 
         public string Message { get; set; }
 
+        public int CardGroupId { get; set; }
+
+        public CardGroup CardGroup { get; set; }
+
         public IEnumerable<CityCard> CityCards { get; set; }
     }
 }

@@ -96,7 +96,6 @@ namespace Monopoly
                     endpoints.MapHub<LobbyHub>("/lobbyhub");
                     endpoints.MapHub<GameHub>("/gamehub");
                 });
-
             }
             catch (Exception ex)
             {

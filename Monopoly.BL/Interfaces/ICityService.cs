@@ -1,75 +1,61 @@
 ﻿namespace Monopoly.BL.Interfaces
 {
-    using Monopoly.BL.Models.City;
     using System.Threading.Tasks;
+    using Monopoly.BL.Contracts.City;
+    using Monopoly.BL.Models.City;
 
     public interface ICityService
     {
-        Task<CityModel> AddCity();
+        public Task ConnectCards(int cityId, int cardGroupId);
 
-        void DeleteCity();
+        public Task<CityCardModel> ChangeCityCardArguments(int cityCardId, string arguments);
 
-        // Streets
-        Task<StreetFieldModel> AddStreet();
+        public Task<CardModel> AddCard(CardModel model);
 
-        void DeleteStreet();
+        public Task<CardGroupModel> AddCardGroup(CardGroupModel model);
 
-        Task<CityStreetModel> ConnectStreet();
+        public Task<CityModel> AddCity(CityModel model);
 
-        // Street monopolies
-        Task<StreetMonopolyModel> AddStreetMonopoly();
+        public Task<EventFieldModel> AddEventField(EventFieldModel model);
 
-        void DeleteStreetMonopoly();
+        public Task<MovementFieldModel> AddMovementField(MovementFieldModel model);
 
-        void ConnectStreetMonopoly();
+        public Task<MovementMonopolyModel> AddMovementMonopoly(MovementMonopolyModel model);
 
-        // Event fields
-        Task<EventFieldModel> AddEventField();
+        public Task<MultiplyMonopolyModel> AddMuliplyMonopoly(MultiplyMonopolyModel model);
 
-        void DeleteEventField();
+        public Task<MultiplyFieldModel> AddMultiplyField(MultiplyFieldModel model);
 
-        Task<CityEventFieldModel> ConnectEventField();
+        public Task<StreetFieldModel> AddStreet(StreetFieldModel model);
 
-        // Movement fields
-        Task<MovementFieldModel> AddMovementField();
+        public Task<StreetMonopolyModel> AddStreetMonopoly(StreetMonopolyModel model);
 
-        void DeleteMovementField();
+        public Task<CityEventFieldModel> ConnectEventField(CityEventFieldContract contract);
 
-        Task<CityMovementFieldModel> ConnectMovementField();
+        public Task<CityMovementFieldModel> ConnectMovementField(CityMovementFieldContract contract);
 
-        // Movement monopolies
-        Task<MovementMonopolyModel> AddMovementMonopoly();
+        public Task<CityMultiplyFieldModel> ConnectMultiplyField(CityMovementFieldContract contract);
 
-        void DeleteMovementMonopoly();
+        public Task<CityStreetModel> ConnectStreet(CityStreetContract contract);
 
-        void ConnectMovementMonopoly();
+        public Task DeleteCard(int cardId);
 
-        // Multiply fields
-        Task<MultiplyFieldModel> AddMultiplyField();
+        public Task DeleteCardGroup(int cardGroupId);
 
-        void DeleteMultiplyField();
+        public Task DeleteCity(int cityId);
 
-        Task<CityMultiplyFieldModel> ConnectMultiplyField();
+        public Task DeleteEventField(int eventFieldId);
 
-        // Multiply monoplies
-        Task<MultiplyMonopolyModel> AddMuliplyMonopoly();
+        public Task DeleteMovementField(int movementFieldId);
 
-        void DeleteMultiplyMonopoly();
+        public Task DeleteMovementMonopoly(int movementMonopolyId);
 
-        void ConnectMultiplyMonopoly();
+        public Task DeleteMultiplyField(int multiplyFieldId);
 
-        // Card groups
-        Task<CardGroupModel> AddCardGroup();
+        public Task DeleteMultiplyMonopoly(int multiplyMonopolyId);
 
-        void DeleteCardGroup();
+        public Task DeleteStreet(int streetId);
 
-        void ConnectCardGroup();
-
-        // Cards
-        Task<CardModel> AddCard();
-
-        void DeleteCard();
-
-        Task<CityCardModel> ConnectCard();
+        public Task DeleteStreetMonopoly(int streetMonopolyId);
     }
 }

@@ -14,10 +14,6 @@
 
         public EventCard EventCard { get; set; }
 
-        public int CardGroupId { get; set; }
-
-        public CardGroup CardGroup { get; set; }
-
         public string Arguments { get; set; }
 
         public IEnumerable<GameCard> GameCards { get; set; }

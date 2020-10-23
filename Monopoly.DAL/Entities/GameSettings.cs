@@ -1,7 +1,7 @@
 ﻿namespace Monopoly.DAL.Entities
 {
-    using Monopoly.DAL.Entities.BaseEntities;
     using System.Collections.Generic;
+    using Monopoly.DAL.Entities.BaseEntities;
 
     public class GameSettings : BaseEntity
     {
