@@ -57,7 +57,7 @@
             return this.mapper.Map<CardGroupModel>(result);
         }
 
-        public async Task<CityModel> AddCity(CityModel model)
+        public async Task<CityModel> AddCity(CityContract model)
         {
             City result = await this.repository.AddAsync(this.mapper.Map<City>(model));
             return this.mapper.Map<CityModel>(result);

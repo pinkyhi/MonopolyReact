@@ -29,5 +29,10 @@
 
             public const string GetGames = Base + "/lobby";
         }
+
+        public static class City
+        {
+            public const string GetCity = Base + "/city";
+        }
     }
 }

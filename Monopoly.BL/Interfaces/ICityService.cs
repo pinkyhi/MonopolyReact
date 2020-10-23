@@ -14,7 +14,7 @@
 
         public Task<CardGroupModel> AddCardGroup(CardGroupModel model);
 
-        public Task<CityModel> AddCity(CityModel model);
+        public Task<CityModel> AddCity(CityContract model);
 
         public Task<EventFieldModel> AddEventField(EventFieldModel model);
 
