@@ -1,13 +1,12 @@
 ﻿namespace Monopoly.BL.Models.City
 {
     using AutoMapper;
+    using Monopoly.BL.Models.City.CityBase;
     using Monopoly.DAL.Entities.JoinEntities;
 
     [AutoMap(typeof(CityCard))]
-    public class CityCardModel
+    public class CityCardModel : BaseEntityModel
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int CardId { get; set; }

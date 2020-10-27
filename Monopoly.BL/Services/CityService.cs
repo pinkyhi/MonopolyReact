@@ -25,12 +25,26 @@
             this.mapper = mapper;
         }
 
-        public async Task<CityModel> GetCityInfo(int cityId)
+        public async Task<CityModel> GetCity(int cityId)
         {
-            City result = await this.repository.GetAsync<City>(false, c => c.Id == cityId, c => c.CityStreets, c => c.CityMultiplyFields, c => c.CityMovementFields, c => c.CityEventFields, c => c.CityCards);
+            City result = await this.repository.GetAsync<City>(false,
+                c => c.Id == cityId,
+                c => c.CityStreets,
+                c => c.CityMultiplyFields,
+                c => c.CityMovementFields,
+                c => c.CityEventFields,
+                c => c.CityCards,
+                c => c.CityCards.Select(s => s.EventCard),
+                c => c.CityCards.Select(s => s.EventCard.CardGroup),
+                c => c.CityStreets.Select(s => s.Street),
+                c => c.CityStreets.Select(s => s.Street.StreetMonopoly),
+                c => c.CityMultiplyFields.Select(s => s.MultiplyField),
+                c => c.CityMultiplyFields.Select(s => s.MultiplyField.MultiplyMonopoly),
+                c => c.CityMovementFields.Select(s => s.MovementField),
+                c => c.CityMovementFields.Select(s => s.MovementField.MovementMonopoly),
+                c => c.CityEventFields.Select(s => s.EventField));
             return this.mapper.Map<CityModel>(result);
         }
-
 
         public async Task ConnectCards(int cityId, int cardGroupId)
         {

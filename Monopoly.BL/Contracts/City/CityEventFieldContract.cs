@@ -6,8 +6,6 @@
     [AutoMap(typeof(CityEventField))]
     public class CityEventFieldContract
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int EventFieldId { get; set; }

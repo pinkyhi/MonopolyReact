@@ -214,6 +214,7 @@ namespace Monopoly
         {
             services.AddScoped<IGameService, GameService>();
             services.AddScoped<ILobbyService, LobbyService>();
+            services.AddScoped<ICityService, CityService>();
         }
 
         private void InstallHubs(IServiceCollection services)

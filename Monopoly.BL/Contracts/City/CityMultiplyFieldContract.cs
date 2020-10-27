@@ -6,8 +6,6 @@
     [AutoMap(typeof(CityMultiplyField))]
     public class CityMultiplyFieldContract
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int MultiplyFieldId { get; set; }

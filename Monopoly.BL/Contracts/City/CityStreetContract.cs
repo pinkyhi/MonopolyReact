@@ -6,8 +6,6 @@
     [AutoMap(typeof(CityStreet))]
     public class CityStreetContract
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int StreetId { get; set; }

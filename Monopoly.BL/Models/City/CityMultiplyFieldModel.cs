@@ -1,13 +1,12 @@
 ﻿namespace Monopoly.BL.Models.City
 {
     using AutoMapper;
+    using Monopoly.BL.Models.City.CityBase;
     using Monopoly.DAL.Entities.JoinEntities;
 
     [AutoMap(typeof(CityMultiplyField))]
-    public class CityMultiplyFieldModel
+    public class CityMultiplyFieldModel : BaseEntityModel
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int MultiplyFieldId { get; set; }

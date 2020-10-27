@@ -6,8 +6,6 @@
     [AutoMap(typeof(CityMovementField))]
     public class CityMovementFieldContract
     {
-        public int Id { get; set; }
-
         public int CityId { get; set; }
 
         public int MovementFieldId { get; set; }

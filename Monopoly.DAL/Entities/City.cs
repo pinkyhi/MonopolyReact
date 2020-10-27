@@ -8,10 +8,6 @@
     {
         public string Name { get; set; }
 
-        public int AuthorId { get; set; }
-
-        public User Author { get; set; }
-
         public bool Publicity { get; set; }
 
         public IEnumerable<Game> Games { get; set; }

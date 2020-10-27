@@ -1,13 +1,12 @@
 ﻿namespace Monopoly.BL.Models.City
 {
     using AutoMapper;
+    using Monopoly.BL.Models.City.CityBase;
     using Monopoly.DAL.Entities.GameEntities.Cards;
 
     [AutoMap(typeof(CardGroup))]
-    public class CardGroupModel
+    public class CardGroupModel : BaseEntityModel
     {
-        public int Id { get; set; }
-
         public string DefaultName { get; set; }
 
         public string Title { get; set; }

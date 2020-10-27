@@ -2,13 +2,12 @@
 {
     using System.Collections.Generic;
     using AutoMapper;
+    using Monopoly.BL.Models.City.CityBase;
     using Monopoly.DAL.Entities;
 
     [AutoMap(typeof(City))]
-    public class CityModel
+    public class CityModel : BaseEntityModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public bool Publicity { get; set; }

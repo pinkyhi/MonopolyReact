@@ -1,13 +1,12 @@
 ﻿namespace Monopoly.BL.Models.City
 {
     using AutoMapper;
+    using Monopoly.BL.Models.City.CityBase;
     using Monopoly.DAL.Entities.GameEntities;
 
     [AutoMap(typeof(StreetField))]
-    public class StreetFieldModel
+    public class StreetFieldModel : BaseEntityModel
     {
-        public int Id { get; set; }
-
         public string DefaultName { get; set; }
 
         public int UnbuildedTax { get; set; }

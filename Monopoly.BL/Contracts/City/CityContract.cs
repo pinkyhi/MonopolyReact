@@ -3,11 +3,9 @@
     using AutoMapper;
     using Monopoly.DAL.Entities;
 
-    [AutoMap(typeof(City))]
+    [AutoMap(typeof(City), ReverseMap = true)]
     public class CityContract
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public bool Publicity { get; set; }

@@ -33,6 +33,20 @@
         public static class City
         {
             public const string GetCity = Base + "/city";
+
+            public const string AddCity = Base + "/city";
+
+            public const string DeleteCity = Base + "/city";
+
+            public const string AddStreet = Base + "/city/street";
+
+            public const string DeleteStreet = Base + "/city/street";
+
+            public const string ConnectStreet = Base + "/city/street";
+
+            public const string AddStreetMonopoly = Base + "/city/streetMonopoly";
+
+            public const string DeleteStreetMonopoly = Base + "/city/streetMonopoly";
         }
     }
 }

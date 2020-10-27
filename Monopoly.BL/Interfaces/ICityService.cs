@@ -6,7 +6,7 @@
 
     public interface ICityService
     {
-        public Task<CityModel> GetCityInfo(int cityId);
+        public Task<CityModel> GetCity(int cityId);
 
         public Task ConnectCards(int cityId, int cardGroupId);
 
