@@ -8,6 +8,7 @@ namespace Monopoly
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -58,6 +59,7 @@ namespace Monopoly
             this.InstallSwagger(services);
             this.InstallHubs(services);
             this.InstallAutoMapper(services);
+            this.InstallSpa(services);
 
             services.AddMvc().ConfigureApiBehaviorOptions(options =>
             {
@@ -65,6 +67,7 @@ namespace Monopoly
             });
             services.AddSignalR();
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -96,11 +99,34 @@ namespace Monopoly
                     endpoints.MapHub<LobbyHub>("/lobbyhub");
                     endpoints.MapHub<GameHub>("/gamehub");
                 });
+                app.UseStaticFiles();
+                if (!env.IsDevelopment())
+                {
+                    app.UseSpaStaticFiles();
+                }
+
+                app.UseSpa(spa =>
+                {
+                    spa.Options.SourcePath = "ClientApp";
+
+                    if (env.IsDevelopment())
+                    {
+                        spa.UseReactDevelopmentServer(npmScript: "start");
+                    }
+                });
             }
             catch (Exception ex)
             {
                 logger.LogError(ex.Message);
             }
+        }
+
+        private void InstallSpa(IServiceCollection services)
+        {
+            services.AddSpaStaticFiles(configuration =>
+            {
+                configuration.RootPath = "ClientApp/build";
+            });
         }
 
         private void InstallFilters(IServiceCollection services)

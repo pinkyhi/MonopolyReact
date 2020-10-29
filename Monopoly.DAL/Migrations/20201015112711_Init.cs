@@ -1,8 +1,8 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Monopoly.DAL.Migrations
+﻿namespace Monopoly.DAL.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

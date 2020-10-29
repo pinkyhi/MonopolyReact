@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace Monopoly.DAL.Migrations
+﻿namespace Monopoly.DAL.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class GameOwner : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
