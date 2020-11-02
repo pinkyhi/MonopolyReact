@@ -2,11 +2,19 @@
 {
     using System.Threading.Tasks;
     using AutoMapper;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Monopoly.BL.Contracts.City;
     using Monopoly.BL.Interfaces;
     using Monopoly.BL.Models.City;
+    using Monopoly.Filters.ActionFilters;
+    using Monopoly.Filters.ExceptionFilters;
 
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [ApiController]
+    [ModelValidation]
+    [ServiceFilter(typeof(MonopolyExceptionFilterAttribute))]
     public class CityController : ControllerBase
     {
         private readonly IMapper mapper;
