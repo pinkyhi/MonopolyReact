@@ -1,3 +1,4 @@
+// eslint-disable-next-line strict
 'use strict';
 
 const fs = require('fs');
@@ -461,6 +462,9 @@ module.exports = function (webpackEnv) {
               exclude: cssModuleRegex,
               use: getStyleLoaders({
                 importLoaders: 1,
+                modules: {
+                  localIdentName: "[name]__[local]___[hash:base64:5]",
+                },
                 sourceMap: isEnvProduction
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
