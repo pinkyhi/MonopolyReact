@@ -107,7 +107,7 @@ namespace Monopoly
 
                 app.UseSpa(spa =>
                 {
-                    spa.Options.SourcePath = "ClientApp";
+                    spa.Options.SourcePath = "client-app";
 
                     if (env.IsDevelopment())
                     {
@@ -125,7 +125,7 @@ namespace Monopoly
         {
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/build";
+                configuration.RootPath = "client-app/dist";
             });
         }
 
