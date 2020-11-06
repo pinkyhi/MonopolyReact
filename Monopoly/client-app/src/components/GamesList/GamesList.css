@@ -1,0 +1,26 @@
+.GamesList table {
+    border-spacing: 0 10px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+}
+.GamesList tr{
+    transition: 0.3s;
+}
+.GamesList tr:not(:first-child):hover{
+    outline: none;
+    border-color: #9ecaed;
+    box-shadow: 0 0 16px #9ecaed;    color: black;
+}
+.GamesList th {
+    padding: 10px 20px;
+    background: #56433D;
+    color: #F9C941;
+    border-right: 2px solid; 
+    font-size: 0.9em;
+}
+.GamesList th:first-child {
+    text-align: left;
+}
+.GamesList th:last-child {
+    border-right: none;
+}

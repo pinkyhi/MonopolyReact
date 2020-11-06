@@ -1,3 +1,20 @@
 .LobbyGame{
-    color: wheat;
+    color: goldenrod;
+    background-color: honeydew;
+    font-weight: bolder;
+}
+.LobbyGame td {
+    vertical-align: middle;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    border-top: 2px solid #56433D;
+    border-bottom: 2px solid #56433D;
+    border-right: 2px solid #56433D;
+}
+.LobbyGame td:first-child {
+    border: 2px solid #56433D;
+}
+.LobbyGame td:nth-child(2){
+    text-align: left;
 }
