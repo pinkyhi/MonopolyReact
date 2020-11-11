@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import Navigation from '../Navigation/Navigation'
 import classes from './Layout.css'
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Layout extends Component{
     render(){

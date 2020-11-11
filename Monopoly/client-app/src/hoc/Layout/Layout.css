@@ -2,6 +2,8 @@
     height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(90deg, #5041b2 0%, #816ff3 100%);
 }
 
 .Layout main{
