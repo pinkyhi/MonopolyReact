@@ -1,7 +1,7 @@
 import {useCallback, useContext} from 'react'
 import {apiRoutes} from '../apiRoutes'
 import jwt from 'jwt-decode'
-import HttpError from './../core/errors/HttpError'
+import HttpError from '../core/errors/HttpError'
 import AppContext from '../contexts/appContext'
 
 export const useIdentity = () => {
@@ -38,7 +38,6 @@ export const useIdentity = () => {
     const logout = useCallback(async () => {
         const headers = {'Content-Type': 'application/json'}
         const response = await fetch(apiRoutes.logout, {method: 'POST', body: {}, headers})
-        console.log(response)
         if(response.ok){
             localStorage.removeItem('token');
             localStorage.removeItem('refreshToken');
