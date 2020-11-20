@@ -1,13 +1,13 @@
 import React from 'react'
 import './App.css';
+import AppContext, {useDefaultValue} from './contexts/appContext';
 import Layout from './hoc/Layout/Layout'
-import AppContext from './contexts/appContext'
 import { useRoutes } from './routes';
 
 function App() {
   const routes = useRoutes(false);
   return (
-    <AppContext.Provider value={{}}>
+    <AppContext.Provider value={useDefaultValue()}>
       <Layout>
         {routes}
       </Layout>

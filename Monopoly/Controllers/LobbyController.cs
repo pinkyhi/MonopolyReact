@@ -15,6 +15,7 @@
     using Monopoly.BL.Interfaces;
     using Monopoly.BL.Models;
     using Monopoly.BL.Results;
+    using Monopoly.Core.Resources;
     using Monopoly.Filters.ActionFilters;
     using Monopoly.Filters.ExceptionFilters;
     using Monopoly.Hubs;
@@ -50,8 +51,8 @@
         {
             GameJoinContract joinContract = this.mapper.Map<GameJoinContract>(request);
 
-            // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
-            // joinContract.UserId = userId;
+            var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
+            joinContract.UserId = userId;
             await this.lobbyService.JoinGame(joinContract);
             return this.Ok();
         }
@@ -61,8 +62,8 @@
         {
             GameCreateContract createContract = this.mapper.Map<GameCreateContract>(request);
 
-            // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
-            // createContract.GameOwnerId = userId;
+            var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
+            createContract.GameOwnerId = userId;
             GameResult result = await this.lobbyService.CreateGame(createContract);
             return this.Ok(this.mapper.Map<GameResponse>(result));
         }
@@ -72,8 +73,8 @@
         {
             GameLeaveContract leaveContract = this.mapper.Map<GameLeaveContract>(request);
 
-            // var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
-            // leaveContract.UserId = userId;
+            var userId = this.User.Claims.First(c => c.Type == StringConstants.JwtClaimId).Value;
+            leaveContract.UserId = userId;
             await this.lobbyService.LeaveGame(leaveContract);
             return this.Ok();
         }
