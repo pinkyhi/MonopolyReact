@@ -1,7 +1,6 @@
 import {useCallback, useContext} from 'react'
 import {apiRoutes} from '../apiRoutes'
 import jwt from 'jwt-decode'
-import HttpError from '../core/errors/HttpError'
 import AppContext from '../contexts/appContext'
 
 export const useIdentity = () => {
@@ -15,9 +14,6 @@ export const useIdentity = () => {
             localStorage.setItem('refreshToken', data.refreshToken);
             setDecodedToken(jwt(data.token));
         }
-        else{
-            throw new HttpError(response.status, response);
-        }
         return response
     }, [setDecodedToken])
 
@@ -29,24 +25,28 @@ export const useIdentity = () => {
             localStorage.setItem('refreshToken', data.refreshToken);
             setDecodedToken(jwt(data.token));
         }
-        else{
-            throw new HttpError(response.status, response);
-        }
         return response
     }, [setDecodedToken])
 
     const logout = useCallback(async () => {
-        const headers = {'Content-Type': 'application/json'}
-        const response = await fetch(apiRoutes.logout, {method: 'POST', body: {}, headers})
+        const response = await fetch(apiRoutes.logout, {method: 'POST', body: {}, headers: {'Content-Type': 'application/json'}})
         if(response.ok){
             localStorage.removeItem('token');
             localStorage.removeItem('refreshToken');
             setDecodedToken(null);
         }
-        else{
-            throw new HttpError(response.status, response);
+        return response
+    }, [setDecodedToken])
+
+    const refreshToken = useCallback(async (token, refreshToken) => {
+        const response = await fetch(apiRoutes.refreshToken, {method: 'POST', body: {token, refreshToken}, headers: {'Content-Type': 'application/json'}})
+        if(response.ok){
+            const data = await response.json()
+            localStorage.setItem('token', data.token)
+            localStorage.setItem('refreshToken', data.refreshToken)
+            setDecodedToken(jwt(data.token))
         }
         return response
     }, [setDecodedToken])
-    return {login, register, logout}
+    return {login, register, logout, refreshToken}
 }
