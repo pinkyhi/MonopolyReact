@@ -3,7 +3,7 @@ import './App.css';
 import AppContext, {useDefaultValue} from './contexts/appContext';
 import Layout from './hoc/Layout/Layout'
 import { useRoutes } from './routes';
-import {unregister} from '../src/core/interceptors/httpInterceptor'
+import '../src/core/interceptors/httpInterceptor'
 
 
 function App() {
