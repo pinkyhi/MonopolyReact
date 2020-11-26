@@ -14,9 +14,9 @@ const application =(
 )
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     {application}
-  </React.StrictMode>,
+  </>,
   document.getElementById('root')
 );
 

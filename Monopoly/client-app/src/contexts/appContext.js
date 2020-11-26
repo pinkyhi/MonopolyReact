@@ -9,7 +9,6 @@ export default AppContext;
 export const useDefaultValue = () => {
     let token = localStorage.getItem('token')
     const [decodedToken, setDecodedToken] = useState(token ? jwt(token) : null);
-
     const isLogged = () => {
         if(decodedToken){
             var current_time = new Date().getTime() / 1000
