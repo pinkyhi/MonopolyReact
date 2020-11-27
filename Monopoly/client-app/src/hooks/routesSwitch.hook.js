@@ -30,7 +30,6 @@ function getAvailableRoutes(loggedNow) {
 }
 
 function getAuthRoutes(loggedNow) {
-    console.log(loggedNow)
     if(loggedNow){
         return(
             <>

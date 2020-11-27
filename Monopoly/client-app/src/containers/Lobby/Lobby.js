@@ -26,18 +26,18 @@ const Lobby = () => {
     //         }
     //     ]
     // }
-    const {loadGames} = useLobby();
+    const {games, loadGames} = useLobby();
     useEffect(()=>{
-        loadGames()
-    })
+        console.log('xx')
+        let searchPart = "test";
+        loadGames(searchPart)
+    }, [loadGames])
     console.log('Lobby');
     return(
         <div className={classes.Lobby}>
             <div className={classes.LobbyGames}>
                 <h1>Lobby</h1>
-                <GamesList
-                    games = {this.state.lobby}
-                />
+
             </div>
         </div>
     )

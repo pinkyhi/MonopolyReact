@@ -35,7 +35,7 @@
             newGame = await this.repository.AddAsync(newGame);
             await this.AddNewPlayer(newGame, game.GameOwnerId, password: game.Password);
 
-            Game gameFinal = await this.repository.GetAsync<Game>(false, g => g.Id == newGame.Id, g => g.City, g => g.GameSettings);
+            Game gameFinal = await this.repository.GetAsync<Game>(false, g => g.Id == newGame.Id, g => g.City, g => g.GameSettings, g => g.Membership, g => g.GameOwner);
             GameResult result = new GameResult()
             {
                 Game = this.mapper.Map<GameModel>(gameFinal),

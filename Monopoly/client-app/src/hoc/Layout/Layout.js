@@ -2,14 +2,12 @@ import React, { useContext, useEffect } from 'react'
 import { useHttpInterceptor } from '../../hooks/httpInterceptor.hook'
 import Navigation from '../Navigation/Navigation'
 import fetchIntercept from 'fetch-intercept';
-
 import classes from './Layout.css'
-import AppContext from '../../contexts/appContext';
 import { useRoutes } from '../../hooks/routesSwitch.hook';
+import AppContext from '../../contexts/appContext';
 
 export const Layout = (props) => {
-    const {decodedToken} = useContext(AppContext);
-    console.log(decodedToken);
+    useContext(AppContext);
     const {interceptor} = useHttpInterceptor();
     const routes = useRoutes();
     useEffect(()=>{

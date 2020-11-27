@@ -13,6 +13,7 @@ const Navigation = () => {
         await logout()
         return
     }
+    const logged = isLogged();
     return(
         <div>
             <Navbar bg="light" expand="lg">
@@ -28,9 +29,13 @@ const Navigation = () => {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-                <Nav className="mr-auto">
-                    <Nav.Link as={Link} to="/lobby">Lobby</Nav.Link>
-                </Nav>
+                {
+                    logged && 
+                    <Nav className="mr-auto">
+                        <Nav.Link as={Link} to="/lobby">Lobby</Nav.Link>
+                    </Nav>
+                }
+                
                 <Nav className="ml-auto">
                     {isLogged() ?
                         <>
