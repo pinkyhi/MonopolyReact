@@ -27,7 +27,8 @@
 
         public async Task<CityModel> GetCity(int cityId)
         {
-            City result = await this.repository.GetAsync<City>(false,
+            City result = await this.repository.GetAsync<City>(
+                false,
                 c => c.Id == cityId,
                 c => c.CityStreets,
                 c => c.CityMultiplyFields,

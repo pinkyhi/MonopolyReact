@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class TokenIsNotExpiredException : MonopolyException
+    public class TokenIsNotExpiredException : BaseAppException
     {
         public TokenIsNotExpiredException()
            : base(ErrorMessages.TokenIsNotExpiredExeption)

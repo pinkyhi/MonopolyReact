@@ -37,7 +37,11 @@ const Lobby = () => {
         <div className={classes.Lobby}>
             <div className={classes.LobbyGames}>
                 <h1>Lobby</h1>
-
+                <form method="POST" action="https://www.liqpay.ua/api/3/checkout" accept-charset="utf-8">
+                    <input type="hidden" name="data" value="eyJ2ZXJzaW9uIjozLCJwdWJsaWNfa2V5IjoiaTQ0MjI3OTY2MTkiLCJwcml2YXRlX2tleSI6InI5STJMRDFMMkh0aTFhWEc0aXpnekRSOWxSSGZyMDA5ZTh6TzMzS3oiLCJhY3Rpb24iOiJwYXkiLCJhbW91bnQiOjEuMCwiY3VycmVuY3kiOiJydWIiLCJkZXNjcmlwdGlvbiI6InFpd2kyIiwib3JkZXJfaWQiOiJxaXdpMiIsInNhbmRib3giOjB9"/>
+                    <input type="hidden" name="signature" value="TkG8LEccxRPbPSFjibOuha93s+s="/>
+                    <input type="submit" src="//static.liqpay.ua/buttons/p1ru.radius.png"/>
+                </form>
             </div>
         </div>
     )

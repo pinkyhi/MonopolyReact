@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class GameIsFullException : MonopolyException
+    public class GameIsFullException : BaseAppException
     {
         public GameIsFullException()
             : base(ErrorMessages.GameIsFullException)

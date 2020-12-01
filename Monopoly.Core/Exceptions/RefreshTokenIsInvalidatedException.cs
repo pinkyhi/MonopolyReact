@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class RefreshTokenIsInvalidatedException : MonopolyException
+    public class RefreshTokenIsInvalidatedException : BaseAppException
     {
         public RefreshTokenIsInvalidatedException()
            : base(ErrorMessages.RefreshTokenIsInvalidatedException)

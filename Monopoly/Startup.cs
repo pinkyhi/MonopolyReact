@@ -30,6 +30,7 @@ namespace Monopoly
     using Monopoly.Hubs;
     using Monopoly.Hubs.Interfaces;
     using Monopoly.Hubs.Services;
+    using Monopoly.LiqPay.Interfaces;
     using Monopoly.Mapper;
     using Monopoly.WebServices.Interfaces;
     using Monopoly.WebServices.Services;
@@ -175,6 +176,7 @@ namespace Monopoly
         private void InstallServices(IServiceCollection services)
         {
             services.AddScoped<IIdentityService, IdentityService>();
+            services.AddScoped<ILiqPayService, LiqPayService>();
         }
 
         private void InstallJwt(IServiceCollection services)

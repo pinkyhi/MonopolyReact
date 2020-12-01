@@ -48,5 +48,11 @@
 
             public const string DeleteStreetMonopoly = Base + "/city/streetMonopoly";
         }
+
+        public static class LiqPay
+        {
+            public const string LiqPayRedirect = Base + "/liqPay";
+            public const string LiqPayNotifications = Base + "/liqpay/notifications";
+        }
     }
 }

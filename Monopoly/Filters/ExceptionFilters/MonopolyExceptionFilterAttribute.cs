@@ -20,13 +20,13 @@
 
         public void OnException(ExceptionContext context)
         {
-            if (context.Exception.GetType().IsSubclassOf(typeof(MonopolyException)))
+            if (context.Exception.GetType().IsSubclassOf(typeof(BaseAppException)))
             {
                 var exception = context.Exception;
                 ObjectResult result = new ObjectResult(new ErrorResponse
                 {
                     Message = exception.Message,
-                    SubCode = (exception as MonopolyException).Code
+                    SubCode = (exception as BaseAppException).Code
                 })
                 {
                     StatusCode = StatusCodes.Status400BadRequest

@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class EmailOccupiedException : MonopolyException
+    public class EmailOccupiedException : BaseAppException
     {
         public EmailOccupiedException()
            : base(ErrorMessages.EmailOccupiedException)

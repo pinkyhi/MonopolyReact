@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class GamePasswordException : MonopolyException
+    public class GamePasswordException : BaseAppException
     {
         public GamePasswordException()
             : base(ErrorMessages.GamePasswordException)

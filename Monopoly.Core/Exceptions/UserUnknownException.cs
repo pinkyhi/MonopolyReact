@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class UserUnknownException : MonopolyException
+    public class UserUnknownException : BaseAppException
     {
         public UserUnknownException()
             : base(ErrorMessages.UserUnknownException)

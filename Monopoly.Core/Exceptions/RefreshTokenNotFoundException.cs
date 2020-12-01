@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class RefreshTokenNotFoundException : MonopolyException
+    public class RefreshTokenNotFoundException : BaseAppException
     {
         public RefreshTokenNotFoundException()
            : base(ErrorMessages.RefreshTokenNotFoundException)

@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class RefreshTokenWrongJtiException : MonopolyException
+    public class RefreshTokenWrongJtiException : BaseAppException
     {
         public RefreshTokenWrongJtiException()
            : base(ErrorMessages.RefreshTokenWrongJtiException)

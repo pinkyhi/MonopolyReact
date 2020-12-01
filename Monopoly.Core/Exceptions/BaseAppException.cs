@@ -4,14 +4,14 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class MonopolyException : Exception
+    public class BaseAppException : Exception
     {
-        public MonopolyException()
+        public BaseAppException()
             : base(ErrorMessages.Unknown)
         {
         }
 
-        public MonopolyException(string message)
+        public BaseAppException(string message)
             : base(message)
         {
         }

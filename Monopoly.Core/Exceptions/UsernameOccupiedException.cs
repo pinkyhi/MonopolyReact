@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class UsernameOccupiedException : MonopolyException
+    public class UsernameOccupiedException : BaseAppException
     {
         public UsernameOccupiedException()
             : base(ErrorMessages.UsernameOccupiedException)

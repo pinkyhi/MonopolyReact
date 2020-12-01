@@ -3,7 +3,7 @@
     using Monopoly.Core.Enums;
     using Monopoly.Core.Resources;
 
-    public class InvalidPasswordException : MonopolyException
+    public class InvalidPasswordException : BaseAppException
     {
         public InvalidPasswordException()
             : base(ErrorMessages.InvalidPasswordException)

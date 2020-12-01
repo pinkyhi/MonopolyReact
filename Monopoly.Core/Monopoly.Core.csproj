@@ -5,10 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="GlobalVariables\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Nix.StyleCop.Analyzers" Version="1.0.19" />
   </ItemGroup>
 
@@ -43,6 +40,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>StringConstants.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="GlobalVariables\" />
   </ItemGroup>
 
 </Project>
