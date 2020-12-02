@@ -26,10 +26,10 @@
         }
 
         [HttpPost(API.Routes.DefaultRoutes.LiqPay.LiqPayRedirect)]
-        public IActionResult RedirectOnLiqPay(LiqPayCheckoutRequest request)
+        public IActionResult RedirectOnLiqPay([FromBody] LiqPayCheckoutRequest request)
         {
             var model = this.mapper.Map<LiqPayCheckoutModel>(request);
-            model.Action = LiqPayActions.Pay;
+            model.Action = LiqPayStatic.Actions.Pay;
             model.Public_Key = this.liqPayOptions.PublicKey;
             model.Private_Key = this.liqPayOptions.PrivateKey;
             model.Sandbox = 1;

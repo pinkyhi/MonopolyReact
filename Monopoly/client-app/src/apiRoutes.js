@@ -4,4 +4,5 @@ export const apiRoutes = {
     logout:'/api/v0/identity/logout',
     refreshToken:'/api/v0/identity/refreshToken',
     lobby:'/api/v0/lobby',
+    liqpay:'/api/v0/liqpay'
 }

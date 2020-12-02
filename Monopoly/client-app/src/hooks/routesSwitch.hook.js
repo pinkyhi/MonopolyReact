@@ -5,6 +5,7 @@ import Register from '../containers/Register/Register'
 import Home from '../containers/Home/Home'
 import {Route, Switch} from 'react-router-dom'
 import AppContext from '../contexts/appContext'
+import Donation from '../containers/Donation/Donation'
 
 export const useRoutes = () =>{
     const {isLogged} = useContext(AppContext);
@@ -22,6 +23,7 @@ function getAvailableRoutes(loggedNow) {
         <Route exact path='/' component={Home}></Route>
         <Route path="/register" component={Register} />
         <Route path="/login" component={Login} />
+        <Route path="/donation" component={Donation} />
         {
             getAuthRoutes(loggedNow)
         }
