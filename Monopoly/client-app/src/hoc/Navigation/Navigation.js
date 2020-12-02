@@ -29,6 +29,9 @@ const Navigation = () => {
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                        <Nav.Link as={Link} to="/donation">Donate</Nav.Link>
+                    </Nav>
                 {
                     logged && 
                     <Nav className="mr-auto">

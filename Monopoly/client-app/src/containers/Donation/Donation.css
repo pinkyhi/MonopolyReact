@@ -1,0 +1,28 @@
+.Donation{
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    width: 100%;
+    flex-direction: column;
+    padding: 15px;
+    background: linear-gradient(45deg, white 0%, #ccc 100%);
+    border-radius: 10px;
+    border: 2px solid black;
+    transition:0.3s;
+}
+.Donation:hover{
+    box-shadow: 0 0 16px #9ecaed;    
+}
+form{
+    margin-left: auto;
+    margin-right: auto;
+}
+.Donation h1{
+    color: white;
+    margin-left: auto;
+    margin-right: auto;
+    text-shadow: black 0px 0px 3px;
+}
+.Donation{
+    width: 600px;
+}
