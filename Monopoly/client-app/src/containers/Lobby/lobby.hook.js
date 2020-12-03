@@ -7,7 +7,7 @@ export const useLobby = () => {
         const response = await fetch(apiRoutes.lobby+'?searchPart='+searchPart)
         if(response.ok){
             const data = await response.json();
-            console.log(data);
+            setGames(data);
         }
     }, [])
 

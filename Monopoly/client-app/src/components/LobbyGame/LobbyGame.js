@@ -5,7 +5,7 @@ import { ImLock, ImUnlocked } from 'react-icons/im'
 const LobbyGame = props => {
     return(
         <tr className={classes.LobbyGame}>
-            <td>{ props.game.id }</td>
+            <td>{ props.game.gameId }</td>
             <td>{ props.game.title }</td>
             <td>{ props.game.password ? <ImLock/> : <ImUnlocked/> }</td>
             <td>{ props.game.countNow+'/'+props.game.capacity}</td>
