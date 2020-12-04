@@ -5,28 +5,6 @@ import { useLobby } from './lobby.hook'
 import { BiSearchAlt2 } from 'react-icons/bi'
 
 const Lobby = () => {
-    // state = {
-        // lobby: [
-        //     {
-        //         id: 1,
-        //         title: 'ForK',
-        //         password: true,
-        //         countNow: 4,
-        //         capacity: 6,
-        //         ownerName: 'pinky',
-        //         cityName: 'Kharkiv'
-        //     },
-        //     {
-        //         id: 2,
-        //         title: 'ForUs',
-        //         password: false,
-        //         countNow: 3,
-        //         capacity: 4,
-        //         ownerName: 'pinky',
-        //         cityName: 'Kharkiv'
-        //     }
-        // ]
-    // }
     const {games, loadGames} = useLobby();
     const [searchPart, setSearchPart] = useState("");
     const searchButtonHandler = useCallback(() => {
