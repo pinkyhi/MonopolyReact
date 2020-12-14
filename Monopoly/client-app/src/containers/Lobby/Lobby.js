@@ -3,6 +3,8 @@ import classes from './Lobby.css'
 import GamesList from '../../components/GamesList/GamesList'
 import { useLobby } from './lobby.hook'
 import { BiSearchAlt2 } from 'react-icons/bi'
+import Popup from 'reactjs-popup'
+import GameAddingForm from '../../components/GameAddingForm/GameAddingForm'
 
 const Lobby = () => {
     const {games, loadGames} = useLobby();
@@ -21,6 +23,13 @@ const Lobby = () => {
         <div className={classes.Lobby}>
             <div className={classes.LobbyGames}>
                 <h1>Lobby</h1>
+                <Popup trigger={<button> Add game</button>} modal position="right center">
+                    {
+                        close => (
+                            <GameAddingForm/>
+                        )
+                    }
+                </Popup>
                 <div>
                     <div className={classes.SearchBox}>
                         <input type="text" onChange={searchFieldHandler} placeholder="Search" />
